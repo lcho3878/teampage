@@ -69,7 +69,7 @@ class Team extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('팀 소개합니다'),
+        title: Text('팀 소개합니다/ 브랜치 테스트'),
       ),
     );
   }
