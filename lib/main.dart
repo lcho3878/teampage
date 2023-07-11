@@ -246,6 +246,7 @@ class _MemberAddState extends State<MemberAdd> {
                     Expanded(
                       child: TextField(
                         controller: _nameController,
+                        style: TextStyle(fontSize: 18),
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                             borderSide: BorderSide(
@@ -274,6 +275,7 @@ class _MemberAddState extends State<MemberAdd> {
                     Expanded(
                       child: TextField(
                         controller: _mbtiController,
+                        style: TextStyle(fontSize: 18),
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                             borderSide: BorderSide(
@@ -302,6 +304,7 @@ class _MemberAddState extends State<MemberAdd> {
                     Expanded(
                       child: TextField(
                         controller: _advantageController,
+                        style: TextStyle(fontSize: 18),
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                             borderSide: BorderSide(
@@ -330,6 +333,7 @@ class _MemberAddState extends State<MemberAdd> {
                     Expanded(
                       child: TextField(
                         controller: _collaborationStyleController,
+                        style: TextStyle(fontSize: 18),
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                             borderSide: BorderSide(
@@ -358,6 +362,7 @@ class _MemberAddState extends State<MemberAdd> {
                     Expanded(
                       child: TextField(
                         controller: _urlController,
+                        style: TextStyle(fontSize: 18),
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                             borderSide: BorderSide(
