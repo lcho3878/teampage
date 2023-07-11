@@ -118,6 +118,7 @@ class MemberAdd extends StatelessWidget {
             icon: Icon(Icons.delete),
             onPressed: () {
               showDialog(
+                // 쓰레기통 아이콘 누를시 다이얼로그 창
                 context: context,
                 builder: (BuildContext context) {
                   return AlertDialog(
@@ -127,14 +128,16 @@ class MemberAdd extends StatelessWidget {
                       TextButton(
                         child: Text('취소'),
                         onPressed: () {
-                          Navigator.of(context).pop(); // 다이얼로그 닫기
+                          Navigator.of(context).pop();
                         },
                       ),
                       TextButton(
                         child: Text('삭제'),
                         onPressed: () {
-                          // 삭제 동작을 수행하는 코드
+                          // 버튼 누를시 삭제 동작을 수행하는 코드
                           Navigator.of(context).pop(); // 다이얼로그 닫기
+
+                          Navigator.of(context).pop(); // 팀원 소개 페이지로 돌아가기
                         },
                       ),
                     ],
@@ -145,184 +148,179 @@ class MemberAdd extends StatelessWidget {
           ),
         ],
       ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Stack(
-                alignment: Alignment.center,
-                children: [
-                  Container(
+      body: SingleChildScrollView(
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(30),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  child: Container(
                     width: 200,
                     height: 250,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       color: Colors.grey,
                     ),
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.camera_alt,
-                        size: 58,
-                        color: Colors.white,
-                      ),
-                      SizedBox(height: 10),
-                      Text(
-                        '사진 등록',
-                        style: TextStyle(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.camera_alt,
+                          size: 58,
                           color: Colors.white,
-                          fontSize: 18,
                         ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 50,
-              ),
-              Row(
-                children: [
-                  SizedBox(
-                    width: 100,
-                    child: Text(
-                      '이   름    :',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
+                        SizedBox(height: 10),
+                        Text(
+                          '사진 등록',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  Expanded(
-                    child: Container(
+                ),
+                SizedBox(height: 40),
+                Row(
+                  children: [
+                    SizedBox(
                       width: 100,
+                      child: Text(
+                        '이   름    :',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    Expanded(
                       child: TextField(
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: Colors.grey, // 회색으로 테두리 색상 설정
-                              width: 2.0, // 테두리의 두께 설정
+                              color: Colors.grey,
+                              width: 2.0,
                             ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 20),
-              Row(
-                children: [
-                  SizedBox(
-                    width: 100,
-                    child: Text(
-                      'MBTI   :',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
+                  ],
+                ),
+                SizedBox(height: 20),
+                Row(
+                  children: [
+                    SizedBox(
+                      width: 100,
+                      child: Text(
+                        'MBTI   :',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
-                  ),
-                  Expanded(
-                    child: TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.grey, // 회색으로 테두리 색상 설정
-                            width: 2.0, // 테두리의 두께 설정
+                    Expanded(
+                      child: TextField(
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.grey,
+                              width: 2.0,
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 20),
-              Row(
-                children: [
-                  SizedBox(
-                    width: 100,
-                    child: Text(
-                      '장점      :',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
+                  ],
+                ),
+                SizedBox(height: 20),
+                Row(
+                  children: [
+                    SizedBox(
+                      width: 100,
+                      child: Text(
+                        '장점      :',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
-                  ),
-                  Expanded(
-                    child: TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.grey, // 회색으로 테두리 색상 설정
-                            width: 2.0, // 테두리의 두께 설정
+                    Expanded(
+                      child: TextField(
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.grey,
+                              width: 2.0,
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 20),
-              Row(
-                children: [
-                  SizedBox(
-                    width: 100,
-                    child: Text(
-                      '협업          스타일   :',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
+                  ],
+                ),
+                SizedBox(height: 20),
+                Row(
+                  children: [
+                    SizedBox(
+                      width: 100,
+                      child: Text(
+                        '협업          스타일   :',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
-                  ),
-                  Expanded(
-                    child: TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.grey, // 회색으로 테두리 색상 설정
-                            width: 2.0, // 테두리의 두께 설정
+                    Expanded(
+                      child: TextField(
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.grey,
+                              width: 2.0,
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 20),
-              Row(
-                children: [
-                  SizedBox(
-                    width: 100,
-                    child: Text(
-                      'URL     :',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
+                  ],
+                ),
+                SizedBox(height: 20),
+                Row(
+                  children: [
+                    SizedBox(
+                      width: 100,
+                      child: Text(
+                        'URL     :',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
-                  ),
-                  Expanded(
-                    child: TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.grey, // 회색으로 테두리 색상 설정
-                            width: 2.0, // 테두리의 두께 설정
+                    Expanded(
+                      child: TextField(
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.grey,
+                              width: 2.0,
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
