@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 void main() {
   runApp(const MyApp());
@@ -113,6 +116,8 @@ class MemberAdd extends StatefulWidget {
 }
 
 class _MemberAddState extends State<MemberAdd> {
+  PickedFile? _image; // 이미지 파일 저장할 변수
+  final ImagePicker _picker = ImagePicker();
   // 텍스트 필드의 컨트롤러들
   TextEditingController _nameController = TextEditingController();
   TextEditingController _mbtiController = TextEditingController();
@@ -140,242 +145,304 @@ class _MemberAddState extends State<MemberAdd> {
     _urlController.clear();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('팀원 등록 하기'),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.delete),
-            onPressed: () {
-              String name = _nameController.text;
-              String mbti = _mbtiController.text;
-              String advantage = _advantageController.text;
-              String collaborationStyle = _collaborationStyleController.text;
-              String url = _urlController.text;
-
-              if (name.isEmpty &&
-                  mbti.isEmpty &&
-                  advantage.isEmpty &&
-                  collaborationStyle.isEmpty &&
-                  url.isEmpty) {
-                // 모든 텍스트 필드가 비어있을 때 이전화면으로 돌아가기
-                Navigator.of(context).pop();
-              } else {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: Text('삭제 확인'),
-                      content: Text('정말로 삭제하시겠습니까?'),
-                      actions: [
-                        TextButton(
-                          child: Text('취소'),
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                        ),
-                        TextButton(
-                          child: Text('삭제'),
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                            _clearTextFields();
-                          },
-                        ),
-                      ],
-                    );
+  // 이미지 선택 다이얼로그 표시
+  void _showImageSourceDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('이미지 선택'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                GestureDetector(
+                  child: Text('갤러리에서 선택'),
+                  onTap: () {
+                    _getImage(ImageSource.gallery); // 갤러리에서 이미지 선택
+                    Navigator.of(context).pop();
                   },
-                );
-              }
-            },
-          ),
-        ],
-      ),
-      body: SingleChildScrollView(
-        // 오버플로우 안나게
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(30),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
+                ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  child: Container(
-                    // 회색 직사각형
-                    width: 200,
-                    height: 250,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10), // 모서리 곡률
-                      color: Colors.grey,
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.camera_alt, // 카메라 아이콘
-                          size: 58,
-                          color: Colors.white,
-                        ),
-                        SizedBox(height: 10),
-                        Text(
-                          '사진 등록',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                  padding: EdgeInsets.all(8.0),
                 ),
-                SizedBox(height: 40),
-                Row(
-                  children: [
-                    SizedBox(
-                      width: 100,
-                      child: Text(
-                        '이   름    :',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: TextField(
-                        controller: _nameController,
-                        style: TextStyle(fontSize: 18),
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Colors.grey,
-                              width: 2.0,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 20),
-                Row(
-                  children: [
-                    SizedBox(
-                      width: 100,
-                      child: Text(
-                        'MBTI   :',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: TextField(
-                        controller: _mbtiController,
-                        style: TextStyle(fontSize: 18),
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Colors.grey,
-                              width: 2.0,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 20),
-                Row(
-                  children: [
-                    SizedBox(
-                      width: 100,
-                      child: Text(
-                        '장점      :',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: TextField(
-                        controller: _advantageController,
-                        style: TextStyle(fontSize: 18),
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Colors.grey,
-                              width: 2.0,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 20),
-                Row(
-                  children: [
-                    SizedBox(
-                      width: 100,
-                      child: Text(
-                        '협업          스타일   :',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: TextField(
-                        controller: _collaborationStyleController,
-                        style: TextStyle(fontSize: 18),
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Colors.grey,
-                              width: 2.0,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 20),
-                Row(
-                  children: [
-                    SizedBox(
-                      width: 100,
-                      child: Text(
-                        'URL     :',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: TextField(
-                        controller: _urlController,
-                        style: TextStyle(fontSize: 18),
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Colors.grey,
-                              width: 2.0,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+                GestureDetector(
+                  child: Text('카메라로 촬영'),
+                  onTap: () {
+                    _getImage(ImageSource.camera); // 카메라로 이미지 촬영
+                    Navigator.of(context).pop();
+                  },
                 ),
               ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  // 이미지 선택 및 촬영 처리하는거
+  Future<void> _getImage(ImageSource source) async {
+    final pickedFile = await _picker.pickImage(source: source);
+    setState(
+      () {
+        if (pickedFile != null) {
+          _image = PickedFile(pickedFile.path);
+        }
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('팀원 등록 하기'),
+          actions: [
+            IconButton(
+              icon: Icon(Icons.delete),
+              onPressed: () {
+                String name = _nameController.text;
+                String mbti = _mbtiController.text;
+                String advantage = _advantageController.text;
+                String collaborationStyle = _collaborationStyleController.text;
+                String url = _urlController.text;
+
+                if (name.isEmpty &&
+                    mbti.isEmpty &&
+                    advantage.isEmpty &&
+                    collaborationStyle.isEmpty &&
+                    url.isEmpty) {
+                  // 모든 텍스트 필드가 비어있을 때 이전화면으로 돌아가기
+                  Navigator.of(context).pop();
+                } else {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Text('삭제 확인'),
+                        content: Text('정말로 삭제하시겠습니까?'),
+                        actions: [
+                          TextButton(
+                            child: Text('취소'),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                          TextButton(
+                            child: Text('삭제'),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                              _clearTextFields();
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                }
+              },
+            ),
+          ],
+        ),
+        body: SingleChildScrollView(
+          // 오버플로우 안나게
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.all(30),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      _showImageSourceDialog(); // 이미지선택하는 다이얼로그
+                    },
+                    child: Container(
+                      // 회색 직사각형
+                      width: 200,
+                      height: 250,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10), // 모서리 곡률
+                        color: Colors.grey,
+                        image: _image != null
+                            ? DecorationImage(
+                                image: FileImage(File(_image!.path)),
+                                fit: BoxFit.cover,
+                              )
+                            : null,
+                      ),
+                      child: _image == null
+                          ? Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.camera_alt, // 카메라 아이콘
+                                  size: 58,
+                                  color: Colors.white,
+                                ),
+                                SizedBox(height: 10),
+                                Text(
+                                  '사진 등록',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                  ),
+                                ),
+                              ],
+                            )
+                          : null,
+                    ),
+                  ),
+                  SizedBox(height: 40),
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: 100,
+                        child: Text(
+                          '이   름    :',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: TextField(
+                          controller: _nameController,
+                          style: TextStyle(fontSize: 18),
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.grey,
+                                width: 2.0,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 20),
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: 100,
+                        child: Text(
+                          'MBTI   :',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: TextField(
+                          controller: _mbtiController,
+                          style: TextStyle(fontSize: 18),
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.grey,
+                                width: 2.0,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 20),
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: 100,
+                        child: Text(
+                          '장점      :',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: TextField(
+                          controller: _advantageController,
+                          style: TextStyle(fontSize: 18),
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.grey,
+                                width: 2.0,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 20),
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: 100,
+                        child: Text(
+                          '협업          스타일   :',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: TextField(
+                          controller: _collaborationStyleController,
+                          style: TextStyle(fontSize: 18),
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.grey,
+                                width: 2.0,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 20),
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: 100,
+                        child: Text(
+                          'URL     :',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: TextField(
+                          controller: _urlController,
+                          style: TextStyle(fontSize: 18),
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.grey,
+                                width: 2.0,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),
