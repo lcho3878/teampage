@@ -137,12 +137,15 @@ class _MemberAddState extends State<MemberAdd> {
   }
 
   // 텍스트 필드 초기화 시키기
-  void _clearTextFields() {
+  void _clearImageAndTextFields() {
     _nameController.clear();
     _mbtiController.clear();
     _advantageController.clear();
     _collaborationStyleController.clear();
     _urlController.clear();
+    setState(() {
+      _image = null;
+    });
   }
 
   // 이미지 선택 다이얼로그 표시
@@ -236,7 +239,7 @@ class _MemberAddState extends State<MemberAdd> {
                             child: Text('삭제'),
                             onPressed: () {
                               Navigator.of(context).pop();
-                              _clearTextFields();
+                              _clearImageAndTextFields();
                             },
                           ),
                         ],
@@ -360,7 +363,7 @@ class _MemberAddState extends State<MemberAdd> {
                       SizedBox(
                         width: 100,
                         child: Text(
-                          '장점      :',
+                          '장   점   :',
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
@@ -389,7 +392,7 @@ class _MemberAddState extends State<MemberAdd> {
                       SizedBox(
                         width: 100,
                         child: Text(
-                          '협업          스타일   :',
+                          '협   업       스타일   :',
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
@@ -418,7 +421,7 @@ class _MemberAddState extends State<MemberAdd> {
                       SizedBox(
                         width: 100,
                         child: Text(
-                          'URL     :',
+                          'U R L   :',
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
