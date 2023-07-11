@@ -1,4 +1,8 @@
+// ignore_for_file: unused_import
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 
 void main() {
   runApp(const MyApp());
@@ -111,7 +115,179 @@ class MemberAdd extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('이곳은 팀원 등록 페이지입니다'),
+        backgroundColor: Colors.white,
+        title: Text(
+          "정보",
+          style: TextStyle(
+              fontSize: 30, fontWeight: FontWeight.bold, color: Colors.black),
+        ),
+        leading: IconButton(
+          color: Colors.black,
+          icon: Icon(Icons.arrow_back), // 햄버거버튼 아이콘 생성
+          onPressed: () {
+            // 아이콘 버튼 실행
+            Navigator.pop(context);
+          },
+        ),
+        actions: <Widget>[
+          IconButton(
+            color: Colors.black,
+            icon: Icon(Icons.delete), // 장바구니 아이콘 생성
+            onPressed: () {
+              // 아이콘 버튼 실행
+              print('Shopping cart button is clicked');
+            },
+          ),
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Container(
+          margin: EdgeInsets.only(top: 130),
+          child: Column(
+            children: [
+              Container(
+                child: Row(children: <Widget>[
+                  Container(
+                    width: 60,
+                    child: Padding(
+                      padding: const EdgeInsets.all(11.0),
+                      child: Text("이름 : ",
+                          style: TextStyle(fontSize: 16, color: Colors.black)),
+                    ),
+                  ),
+                  Flexible(
+                    child: Container(
+                      margin: EdgeInsets.only(right: 20),
+                      child: TextField(
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.black),
+                        decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: '이름을 입력하세요',
+                            hintStyle: TextStyle(color: Colors.grey[300])),
+                        cursorColor: Colors.blue,
+                      ),
+                    ),
+                  ),
+                ]),
+              ),
+              Container(
+                child: Row(children: <Widget>[
+                  Container(
+                    width: 80,
+                    child: Padding(
+                      padding: const EdgeInsets.all(11.0),
+                      child: Text("MBTI : ",
+                          style: TextStyle(fontSize: 16, color: Colors.black)),
+                    ),
+                  ),
+                  Flexible(
+                    child: Container(
+                      margin: EdgeInsets.only(right: 20),
+                      child: TextField(
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.black),
+                        decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: 'MBTI 입력하세요',
+                            hintStyle: TextStyle(color: Colors.grey[300])),
+                        cursorColor: Colors.blue,
+                      ),
+                    ),
+                  ),
+                ]),
+              ),
+              Container(
+                child: Row(children: <Widget>[
+                  Container(
+                    width: 60,
+                    child: Padding(
+                      padding: const EdgeInsets.all(11.0),
+                      child: Text("장점 : ",
+                          style: TextStyle(fontSize: 16, color: Colors.black)),
+                    ),
+                  ),
+                  Flexible(
+                    child: Container(
+                      margin: EdgeInsets.only(right: 20),
+                      child: TextField(
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.black),
+                        decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: '장점을 입력하세요',
+                            hintStyle: TextStyle(color: Colors.grey[300])),
+                        cursorColor: Colors.blue,
+                      ),
+                    ),
+                  ),
+                ]),
+              ),
+              Container(
+                child: Row(children: <Widget>[
+                  Container(
+                    width: 110,
+                    child: Padding(
+                      padding: const EdgeInsets.all(11.0),
+                      child: Text("협업스타일 : ",
+                          style: TextStyle(fontSize: 16, color: Colors.black)),
+                    ),
+                  ),
+                  Flexible(
+                    child: Container(
+                      margin: EdgeInsets.only(right: 20),
+                      child: TextField(
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.black),
+                        decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: 'ex) 경청',
+                            hintStyle: TextStyle(color: Colors.grey[300])),
+                        cursorColor: Colors.blue,
+                      ),
+                    ),
+                  ),
+                ]),
+              ),
+              Container(
+                child: Row(children: <Widget>[
+                  Container(
+                    width: 80,
+                    child: Padding(
+                      padding: const EdgeInsets.all(11.0),
+                      child: Text(
+                        "블로그 : ",
+                        style: TextStyle(fontSize: 16, color: Colors.black),
+                      ),
+                    ),
+                  ),
+                  Flexible(
+                    child: Container(
+                      margin: EdgeInsets.only(right: 20),
+                      child: TextField(
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.black),
+                        decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: '블로그 url',
+                            hintStyle: TextStyle(color: Colors.grey[300])),
+                        cursorColor: Colors.blue,
+                      ),
+                    ),
+                  ),
+                ]),
+              ),
+              Container(
+                  width: 140,
+                  height: 35,
+                  margin: EdgeInsets.only(top: 50),
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    child: Text("등록"),
+                  )),
+            ],
+          ),
+        ),
       ),
     );
   }
