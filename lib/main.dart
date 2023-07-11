@@ -115,7 +115,7 @@ class MemberAdd extends StatelessWidget {
         title: Text('팀원 등록 하기'),
         actions: [
           IconButton(
-            icon: Icon(Icons.delete),
+            icon: Icon(Icons.delete), // 삭제 아이콘!
             onPressed: () {
               showDialog(
                 // 쓰레기통 아이콘 누를시 다이얼로그 창
@@ -134,7 +134,7 @@ class MemberAdd extends StatelessWidget {
                       TextButton(
                         child: Text('삭제'),
                         onPressed: () {
-                          // 버튼 누를시 삭제 동작을 수행하는 코드
+                          // 삭제 버튼 누를시 삭제 동작을 수행하는 코드
                           Navigator.of(context).pop(); // 다이얼로그 닫기
 
                           Navigator.of(context).pop(); // 팀원 소개 페이지로 돌아가기
@@ -149,6 +149,7 @@ class MemberAdd extends StatelessWidget {
         ],
       ),
       body: SingleChildScrollView(
+        // 오버플로우 안나게
         child: Center(
           child: Padding(
             padding: const EdgeInsets.all(30),
@@ -158,17 +159,18 @@ class MemberAdd extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   child: Container(
+                    // 회색 직사각형
                     width: 200,
                     height: 250,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(10), // 모서리 곡률
                       color: Colors.grey,
                     ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(
-                          Icons.camera_alt,
+                          Icons.camera_alt, // 카메라 아이콘
                           size: 58,
                           color: Colors.white,
                         ),
