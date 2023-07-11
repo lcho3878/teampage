@@ -105,8 +105,40 @@ class TeamMember extends StatelessWidget {
 }
 
 // 팀원 등록 페이지
-class MemberAdd extends StatelessWidget {
+class MemberAdd extends StatefulWidget {
   const MemberAdd({Key? key}) : super(key: key);
+
+  @override
+  _MemberAddState createState() => _MemberAddState();
+}
+
+class _MemberAddState extends State<MemberAdd> {
+  // 텍스트 필드의 컨트롤러들
+  TextEditingController _nameController = TextEditingController();
+  TextEditingController _mbtiController = TextEditingController();
+  TextEditingController _advantageController = TextEditingController();
+  TextEditingController _collaborationStyleController = TextEditingController();
+  TextEditingController _urlController = TextEditingController();
+
+  @override
+  void dispose() {
+    // 컨트롤러해제.
+    _nameController.dispose();
+    _mbtiController.dispose();
+    _advantageController.dispose();
+    _collaborationStyleController.dispose();
+    _urlController.dispose();
+    super.dispose();
+  }
+
+  // 텍스트 필드 초기화 시키기
+  void _clearTextFields() {
+    _nameController.clear();
+    _mbtiController.clear();
+    _advantageController.clear();
+    _collaborationStyleController.clear();
+    _urlController.clear();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -115,35 +147,47 @@ class MemberAdd extends StatelessWidget {
         title: Text('팀원 등록 하기'),
         actions: [
           IconButton(
-            icon: Icon(Icons.delete), // 삭제 아이콘!
+            icon: Icon(Icons.delete),
             onPressed: () {
-              showDialog(
-                // 쓰레기통 아이콘 누를시 다이얼로그 창
-                context: context,
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                    title: Text('삭제 확인'),
-                    content: Text('정말로 삭제하시겠습니까?'),
-                    actions: [
-                      TextButton(
-                        child: Text('취소'),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                      TextButton(
-                        child: Text('삭제'),
-                        onPressed: () {
-                          // 삭제 버튼 누를시 삭제 동작을 수행하는 코드
-                          Navigator.of(context).pop(); // 다이얼로그 닫기
+              String name = _nameController.text;
+              String mbti = _mbtiController.text;
+              String advantage = _advantageController.text;
+              String collaborationStyle = _collaborationStyleController.text;
+              String url = _urlController.text;
 
-                          Navigator.of(context).pop(); // 팀원 소개 페이지로 돌아가기
-                        },
-                      ),
-                    ],
-                  );
-                },
-              );
+              if (name.isEmpty &&
+                  mbti.isEmpty &&
+                  advantage.isEmpty &&
+                  collaborationStyle.isEmpty &&
+                  url.isEmpty) {
+                // 모든 텍스트 필드가 비어있을 때 이전화면으로 돌아가기
+                Navigator.of(context).pop();
+              } else {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Text('삭제 확인'),
+                      content: Text('정말로 삭제하시겠습니까?'),
+                      actions: [
+                        TextButton(
+                          child: Text('취소'),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                        TextButton(
+                          child: Text('삭제'),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                            _clearTextFields();
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                );
+              }
             },
           ),
         ],
@@ -201,6 +245,7 @@ class MemberAdd extends StatelessWidget {
                     ),
                     Expanded(
                       child: TextField(
+                        controller: _nameController,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                             borderSide: BorderSide(
@@ -228,6 +273,7 @@ class MemberAdd extends StatelessWidget {
                     ),
                     Expanded(
                       child: TextField(
+                        controller: _mbtiController,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                             borderSide: BorderSide(
@@ -255,6 +301,7 @@ class MemberAdd extends StatelessWidget {
                     ),
                     Expanded(
                       child: TextField(
+                        controller: _advantageController,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                             borderSide: BorderSide(
@@ -282,6 +329,7 @@ class MemberAdd extends StatelessWidget {
                     ),
                     Expanded(
                       child: TextField(
+                        controller: _collaborationStyleController,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                             borderSide: BorderSide(
@@ -309,6 +357,7 @@ class MemberAdd extends StatelessWidget {
                     ),
                     Expanded(
                       child: TextField(
+                        controller: _urlController,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                             borderSide: BorderSide(
