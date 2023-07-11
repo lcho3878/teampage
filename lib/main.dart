@@ -104,14 +104,135 @@ class TeamMember extends StatelessWidget {
   }
 }
 
-//팀원 등록 페이지
+// 팀원 등록 페이지
 class MemberAdd extends StatelessWidget {
   const MemberAdd({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('이곳은 팀원 등록 페이지입니다'),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.delete),
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: Text('삭제 확인'),
+                    content: Text('정말로 삭제하시겠습니까?'),
+                    actions: [
+                      TextButton(
+                        child: Text('취소'),
+                        onPressed: () {
+                          Navigator.of(context).pop(); // 다이얼로그 닫기
+                        },
+                      ),
+                      TextButton(
+                        child: Text('삭제'),
+                        onPressed: () {
+                          // 삭제 동작을 수행하는 코드를 여기에 추가하세요.
+                          Navigator.of(context).pop(); // 다이얼로그 닫기
+                        },
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
+          ),
+        ],
+      ),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Row(
+                children: [
+                  SizedBox(
+                    width: 100,
+                    child: Text('이름'),
+                  ),
+                  Expanded(
+                    child: TextField(
+                      decoration: InputDecoration(
+                        labelText: '이름',
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 10),
+              Row(
+                children: [
+                  SizedBox(
+                    width: 100,
+                    child: Text('MBTI'),
+                  ),
+                  Expanded(
+                    child: TextField(
+                      decoration: InputDecoration(
+                        labelText: 'MBTI',
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 10),
+              Row(
+                children: [
+                  SizedBox(
+                    width: 100,
+                    child: Text('장점'),
+                  ),
+                  Expanded(
+                    child: TextField(
+                      decoration: InputDecoration(
+                        labelText: '장점',
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 10),
+              Row(
+                children: [
+                  SizedBox(
+                    width: 100,
+                    child: Text('협업 스타일'),
+                  ),
+                  Expanded(
+                    child: TextField(
+                      decoration: InputDecoration(
+                        labelText: '협업 스타일',
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 10),
+              Row(
+                children: [
+                  SizedBox(
+                    width: 100,
+                    child: Text('URL'),
+                  ),
+                  Expanded(
+                    child: TextField(
+                      decoration: InputDecoration(
+                        labelText: 'URL',
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
