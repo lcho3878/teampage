@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:teampage/teamMember_page.dart';
+import 'package:teampage/team_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -60,62 +62,62 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+// 분리
+// // 팀소개 페이지
+// class Team extends StatelessWidget {
+//   const Team({Key? key}) : super(key: key);
 
-// 팀소개 페이지
-class Team extends StatelessWidget {
-  const Team({Key? key}) : super(key: key);
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text('팀 소개합니다'),
+//       ),
+//     );
+//   }
+// }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('팀 소개합니다'),
-      ),
-    );
-  }
-}
+// // 팀원 소개 페이지
+// class TeamMember extends StatelessWidget {
+//   const TeamMember({Key? key}) : super(key: key);
 
-// 팀원 소개 페이지
-class TeamMember extends StatelessWidget {
-  const TeamMember({Key? key}) : super(key: key);
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text('팀원 소개'),
+//       ),
+//       body: Text('팀원을 등록해주세요'),
+//       floatingActionButton: FloatingActionButton(
+//         onPressed: () {
+//           Navigator.push(
+//             context,
+//             MaterialPageRoute(builder: (context) => MemberAdd()),
+//           );
+//         },
+//         backgroundColor: Color(0xFFFF7E36),
+//         elevation: 1,
+//         child: Icon(
+//           Icons.add_rounded,
+//           size: 36,
+//         ),
+//       ),
+//     );
+//   }
+// }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('팀원 소개'),
-      ),
-      body: Text('팀원을 등록해주세요'),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => MemberAdd()),
-          );
-        },
-        backgroundColor: Color(0xFFFF7E36),
-        elevation: 1,
-        child: Icon(
-          Icons.add_rounded,
-          size: 36,
-        ),
-      ),
-    );
-  }
-}
-
-//팀원 등록 페이지
-class MemberAdd extends StatelessWidget {
-  const MemberAdd({Key? key}) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('이곳은 팀원 등록 페이지입니다'),
-      ),
-    );
-  }
-}
+// //팀원 등록 페이지
+// class MemberAdd extends StatelessWidget {
+//   const MemberAdd({Key? key}) : super(key: key);
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text('이곳은 팀원 등록 페이지입니다'),
+//       ),
+//     );
+//   }
+// }
 
 //팀원 상세 설명 페이지
 class MemberDetail extends StatelessWidget {
