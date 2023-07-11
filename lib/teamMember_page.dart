@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:teampage/teamAdd_page.dart';
+
+import 'MemberDetail_page.dart';
 
 // 팀원 소개 페이지
 class TeamMember extends StatefulWidget {
@@ -10,7 +11,13 @@ class TeamMember extends StatefulWidget {
 }
 
 class _TeamMemberState extends State<TeamMember> {
-  List introList = ["d", "d", "d", "d", "d", "d"];
+  List<String> introList = [
+    "김지훈",
+    "INFJ",
+    "끈기",
+    "경청",
+    "https://luttoli.tistory.com/",
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -25,23 +32,36 @@ class _TeamMemberState extends State<TeamMember> {
               itemBuilder: (context, index) {
                 String member = introList[index];
                 return ListTile(
-                  title: Text(
-                    member,
-                    maxLines: 3,
-                    overflow: TextOverflow.ellipsis,
-                  ),
+                  title: Text(member),
                   onTap: () {
                     // 아이템 클릭시
-                    print('$member : 클릭 됨');
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => MemberDetail(
+                          index: index,
+                          introList: introList,
+                        ),
+                      ),
+                    );
                   },
                 );
               },
             ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          String intro = '';
+          setState(() {
+            introList.add(intro);
+          });
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => MemberAdd()),
+            MaterialPageRoute(
+              builder: (_) => MemberDetail(
+                index: introList.indexOf(intro),
+                introList: introList,
+              ),
+            ),
           );
         },
         backgroundColor: Color(0xFFFF7E36),
