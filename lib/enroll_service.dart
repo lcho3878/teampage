@@ -91,6 +91,7 @@ class EnrollService with ChangeNotifier {
     memberList = memberJsonList.map((json) => Enroll.fromJson(json)).toList();
   }
 
+  // 삭제 함수
   void deleteMember(int index) {
     memberList.removeAt(index);
     saveMemberList();
