@@ -1,7 +1,7 @@
-import 'dart:io';
+import 'dart:io'; // imagepicker 에 필요한 패키지 file관리
 
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:image_picker/image_picker.dart'; // 이미지피커
 
 void main() {
   runApp(const MyApp());
@@ -185,7 +185,8 @@ class _MemberAddState extends State<MemberAdd> {
 
   // 이미지 선택 및 촬영 처리하는거
   Future<void> _getImage(ImageSource source) async {
-    final pickedFile = await _picker.pickImage(source: source);
+    final pickedFile =
+        await _picker.pickImage(source: source); //pickimage는 비동기적으로 실행됨
     setState(
       () {
         if (pickedFile != null) {
@@ -272,12 +273,14 @@ class _MemberAddState extends State<MemberAdd> {
                         color: Colors.grey,
                         image: _image != null
                             ? DecorationImage(
-                                image: FileImage(File(_image!.path)),
+                                // decorationimage = 배경으로 쓸수 있게하는 속성, 이미지가 null이 아닌경우 선택된이미지를표시하는
+                                image: FileImage(File(_image!
+                                    .path)), //선택한 이미지파일을 가져와서 fileimage로 변환, image!.path = 선택된이미지파일의 경로
                                 fit: BoxFit.cover,
                               )
-                            : null,
+                            : null, // 이미지가 선택되지 않은경우 null처리
                       ),
-                      child: _image == null
+                      child: _image == null // 이미지가 선택되지 않았을때의 조건
                           ? Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
