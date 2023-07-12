@@ -1,13 +1,15 @@
 //팀원 등록 페이지
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:teampage/enroll_service.dart';
 import 'package:image_picker/image_picker.dart';
 
 class MemberAdd extends StatefulWidget {
-  const MemberAdd({Key? key, index}) : super(key: key);
+  const MemberAdd({Key? key, required this.memberList, required this.index})
+      : super(key: key);
+  final List<Enroll> memberList;
+  final int index;
 
   @override
   State<MemberAdd> createState() => _MemberAddState();
@@ -33,18 +35,6 @@ class _MemberAddState extends State<MemberAdd> {
     stlController.dispose();
     urlController.dispose();
     super.dispose();
-  }
-
-  // 텍스트 필드 초기화 시키기(예시, 삭제예정)
-  void _clearImageAndTextFields() {
-    // _nameController.clear();
-    // _mbtiController.clear();
-    // _advantageController.clear();
-    // _collaborationStyleController.clear();
-    // _urlController.clear();
-    setState(() {
-      _image = null;
-    });
   }
 
   // 이미지 선택 다이얼로그 표시
@@ -96,6 +86,17 @@ class _MemberAddState extends State<MemberAdd> {
 
   @override
   Widget build(BuildContext context) {
+    final List<Enroll> memberList;
+
+    EnrollService enrollService = context.read<EnrollService>();
+    Enroll enroll = enrollService.memberList[widget.index];
+
+    nameController.text = enroll.name;
+    mbtiController.text = enroll.mbti;
+    advController.text = enroll.advantage;
+    stlController.text = enroll.style;
+    urlController.text = enroll.url;
+
     return Consumer<EnrollService>(
       builder: (context, enrollService, child) {
         return Scaffold(
@@ -323,24 +324,25 @@ class _MemberAddState extends State<MemberAdd> {
                         ]),
                       ),
                       Container(
-                          width: 140,
-                          height: 35,
-                          margin: EdgeInsets.only(top: 50),
-                          child: ElevatedButton(
-                            // 저장 기능
-                            onPressed: () {
-                              enrollService.createMember(
-                                name: nameController.text,
-                                mbti: mbtiController.text,
-                                advantage: advController.text,
-                                style: stlController.text,
-                                url: urlController.text,
-                              );
+                        width: 140,
+                        height: 35,
+                        margin: EdgeInsets.only(top: 50),
+                        child: ElevatedButton(
+                          // 저장 기능
+                          onPressed: () {
+                            enrollService.createMember(
+                              name: nameController.text,
+                              mbti: mbtiController.text,
+                              advantage: advController.text,
+                              style: stlController.text,
+                              url: urlController.text,
+                            );
 
-                              Navigator.pop(context);
-                            },
-                            child: Text("등록"),
-                          )),
+                            Navigator.pop(context);
+                          },
+                          child: Text("등록"),
+                        ),
+                      ),
                     ],
                   ),
                 ),

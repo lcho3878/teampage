@@ -41,7 +41,6 @@ class _TeamMemberState extends State<TeamMember> {
                   itemBuilder: (context, index) {
                     Enroll enroll =
                         memberList[index]; // index에 해당하는 memberlist 가져오기
-
                     return Padding(
                       padding: EdgeInsets.only(
                         left: 15,
@@ -50,17 +49,30 @@ class _TeamMemberState extends State<TeamMember> {
                       ),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
+                        // 이미지 클릭 시 디테일페이지로 이동
                         children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(8),
-                            child: Image.network(
-                              "https://cdn2.thecatapi.com/images/6bt.jpg",
-                              width: 150,
-                              height: 180,
-                              fit: BoxFit.cover,
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => MemberAdd(
+                                    index: memberList.indexOf(enroll),
+                                    memberList: memberList,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(8),
+                              child: Image.network(
+                                "https://cdn2.thecatapi.com/images/6bt.jpg",
+                                width: 150,
+                                height: 180,
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
-                          // Text('test'),
                           SizedBox(width: 13),
                           Expanded(
                             child: Column(
@@ -101,9 +113,25 @@ class _TeamMemberState extends State<TeamMember> {
                 ),
           floatingActionButton: FloatingActionButton(
             onPressed: () {
+              Enroll enroll =
+                  Enroll(name: "", mbti: "", advantage: "", style: "", url: "");
+              setState(() {
+                memberList.add(enroll);
+              });
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => MemberAdd()),
+                MaterialPageRoute(
+                  builder: (context) => MemberAdd(
+                    index: memberList.indexOf(enroll),
+                    // index: memberList.indexOf(Enroll(
+                    //     name: 'name',
+                    //     mbti: 'mbti',
+                    //     advantage: 'advantage',
+                    //     style: 'style',
+                    //     url: 'url')),
+                    memberList: [],
+                  ),
+                ),
               );
             },
             backgroundColor: Color(0xFFFF7E36),

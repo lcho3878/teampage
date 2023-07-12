@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:teampage/teamMember_page.dart';
+import 'package:teampage/enroll_page.dart';
 
 class TeamPage extends StatefulWidget {
   const TeamPage({Key? key}) : super(key: key);
@@ -34,7 +34,10 @@ class _TeamPageState extends State<TeamPage> {
               child: Team(),
             ),
             Tab(
-              child: TeamMember(),
+              child: MemberAdd(
+                index: 0,
+                memberList: [],
+              ),
             ),
           ],
         ),
@@ -56,80 +59,6 @@ class Team extends StatelessWidget {
           style: TextStyle(color: Colors.black),
         ),
       ),
-      // 연습
-      // body: Padding(
-      //   padding: const EdgeInsets.all(8.0),
-      //   child: Column(
-      //     children: [
-      //       Image.asset("assets/images/8team.png"),
-      //       Container(
-      //         margin: EdgeInsets.only(top: 20),
-      //         child: Text(
-      //           "팀 목표 : 개발자가 되고 싶습니다.",
-      //           style: TextStyle(
-      //             fontSize: 26,
-      //             fontWeight: FontWeight.bold,
-      //             color: Colors.purpleAccent,
-      //           ),
-      //         ),
-      //       ),
-      //       Container(
-      //         color: Colors.cyanAccent,
-      //         margin: EdgeInsets.all(20),
-      //         padding: EdgeInsets.all(10),
-      //         child: Column(
-      //           crossAxisAlignment: CrossAxisAlignment.stretch,
-      //           children: [
-      //             Text(
-      //               "팀 특징",
-      //               style: TextStyle(
-      //                 fontSize: 20,
-      //                 fontWeight: FontWeight.w500,
-      //               ),
-      //             ),
-      //             Container(
-      //               margin: EdgeInsets.all(10),
-      //               child: Column(
-      //                 crossAxisAlignment: CrossAxisAlignment.stretch,
-      //                 children: [
-      //                   Text("* 조곤조곤"),
-      //                   Text("* 소통에 조심성 있음"),
-      //                   Text("* 배려심 깊음"),
-      //                 ],
-      //               ),
-      //             ),
-      //           ],
-      //         ),
-      //       ),
-      //       Padding(
-      //         padding: const EdgeInsets.all(20.0),
-      //         child: Column(
-      //           crossAxisAlignment: CrossAxisAlignment.stretch,
-      //           children: [
-      //             Text(
-      //               "우리 팀 약속",
-      //               style: TextStyle(
-      //                 fontSize: 20,
-      //                 fontWeight: FontWeight.w500,
-      //               ),
-      //             ),
-      //             Padding(
-      //               padding: const EdgeInsets.all(8.0),
-      //               child: Column(
-      //                 crossAxisAlignment: CrossAxisAlignment.stretch,
-      //                 children: [
-      //                   Text("* 식사 시간은 점심 13시, 저녁 18시"),
-      //                   Text("* 매일 2시간 이상 수강 및 복습 후 팀 프로젝트 참여하기"),
-      //                   Text("* Git Merge는 매일 6시에 하기"),
-      //                 ],
-      //               ),
-      //             ),
-      //           ],
-      //         ),
-      //       )
-      //     ],
-      //   ),
-      // ),
     );
   }
 }

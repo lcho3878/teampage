@@ -32,7 +32,7 @@ class Enroll {
 
   factory Enroll.fromJson(json) {
     return Enroll(
-      name: json['name'],
+      name: json['name'] ?? '',
       mbti: json['mbti'] ?? '',
       advantage: json['advantage'] ?? '',
       style: json['style'] ?? '',
