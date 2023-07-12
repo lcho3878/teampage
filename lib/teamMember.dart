@@ -7,7 +7,7 @@ import 'package:teampage/enroll_service.dart';
 
 import 'enroll_page.dart';
 
-// List<String> infoList = ['', '', '', '', ''];
+// List<String> infoList = ['', '', '', '', ''];aa
 
 class TeamMember extends StatefulWidget {
   //상태 변경
