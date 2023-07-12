@@ -55,6 +55,7 @@ class EnrollService with ChangeNotifier {
 
   // 등록 기능
   createMember({
+    required int index,
     required String name,
     required String mbti,
     required String advantage,
@@ -63,7 +64,8 @@ class EnrollService with ChangeNotifier {
   }) {
     Enroll enroll = Enroll(
         name: name, mbti: mbti, advantage: advantage, style: style, url: url);
-    memberList.add(enroll);
+    // memberList.add(enroll);
+    memberList[index] = enroll;
     notifyListeners(); // Consumer<enrollService>의 builder 부분을 호출해서 화면 새로고침
     saveMemberList();
   }
@@ -90,4 +92,20 @@ class EnrollService with ChangeNotifier {
 
     memberList = memberJsonList.map((json) => Enroll.fromJson(json)).toList();
   }
+
+  // updateMember(
+  //     {required int index,
+  //     required String name,
+  //     required String mbti,
+  //     required String advantage,
+  //     required String style,
+  //     required String url}) {
+  //   Enroll enroll = memberList[index];
+  //   enroll.name = name;
+  //   enroll.mbti = mbti;
+  //   enroll.advantage = advantage;
+  //   enroll.style = style;
+  //   enroll.url = url;
+  //   notifyListeners();
+  // }
 }
