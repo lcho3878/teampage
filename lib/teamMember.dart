@@ -1,13 +1,12 @@
 // 팀원 소개 페이지
-// import 'dart:html';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:teampage/enroll_service.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 import 'enroll_page.dart';
-
-// List<String> infoList = ['', '', '', '', ''];aa
 
 class TeamMember extends StatefulWidget {
   //상태 변경
@@ -51,47 +50,72 @@ class _TeamMemberState extends State<TeamMember> {
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(8),
-                            child: Image.network(
-                              "https://cdn2.thecatapi.com/images/6bt.jpg",
-                              width: 150,
-                              height: 180,
-                              fit: BoxFit.cover,
+                          // 디테일 페이지 이동
+                          Container(
+                            width: 150,
+                            height: 180,
+                            child: GestureDetector(
+                              onTap: () async {
+                                await Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) => MemberAdd(
+                                      index: index,
+                                    ),
+                                  ),
+                                );
+                              },
+                              child: Image.file(
+                                File(enroll.imagepath),
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
-                          // Text('test'),
                           SizedBox(width: 13),
                           Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(height: 7),
-                                Text(
-                                  '이름 : ${enroll.name}',
-                                  style: TextStyle(fontSize: 18),
-                                ),
-                                SizedBox(height: 8),
-                                Text(
-                                  'MBTI : ${enroll.mbti}',
-                                  style: TextStyle(fontSize: 18),
-                                ),
-                                SizedBox(height: 8),
-                                Text(
-                                  '장점 : ${enroll.advantage}',
-                                  style: TextStyle(fontSize: 18),
-                                ),
-                                SizedBox(height: 8),
-                                Text(
-                                  '협업스타일 : ${enroll.style}',
-                                  style: TextStyle(fontSize: 18),
-                                ),
-                                SizedBox(height: 8),
-                                Text(
-                                  'URL : ${enroll.url}',
-                                  style: TextStyle(fontSize: 18),
-                                ),
-                              ],
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 3),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(height: 7),
+                                  Text(
+                                    '이름 : ${enroll.name}',
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                  SizedBox(height: 8),
+                                  Text(
+                                    'MBTI : ${enroll.mbti}',
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                  SizedBox(height: 8),
+                                  Text(
+                                    '장점 : ${enroll.advantage}',
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                  SizedBox(height: 8),
+                                  Text(
+                                    '협업스타일 : ${enroll.style}',
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                  SizedBox(height: 8),
+                                  GestureDetector(
+                                    child: Text(
+                                      'URL : ${enroll.url}',
+                                      style: TextStyle(fontSize: 18),
+                                    ),
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              WebViewPage(url: '${enroll.url}'),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ],
@@ -115,6 +139,24 @@ class _TeamMemberState extends State<TeamMember> {
           ),
         );
       },
+    );
+  }
+}
+
+// 웹뷰(url 링크)
+class WebViewPage extends StatelessWidget {
+  WebViewPage({super.key, required this.url});
+
+  String url;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.grey,
+        title: Text(url),
+      ),
+      body: WebView(initialUrl: url),
     );
   }
 }
