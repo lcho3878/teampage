@@ -76,20 +76,24 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+// 분리
+// // 팀소개 페이지
+// class Team extends StatelessWidget {
+//   const Team({Key? key}) : super(key: key);
 
-// 팀소개 페이지
-class Team extends StatelessWidget {
-  const Team({Key? key}) : super(key: key);
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text('팀 소개합니다'),
+//       ),
+//     );
+//   }
+// }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('팀 소개합니다'),
-      ),
-    );
-  }
-}
+// // 팀원 소개 페이지
+// class TeamMember extends StatelessWidget {
+//   const TeamMember({Key? key}) : super(key: key);
 
 //팀원 상세 설명 페이지
 class MemberDetail extends StatelessWidget {
@@ -104,15 +108,15 @@ class MemberDetail extends StatelessWidget {
   }
 }
 
-//팀원 정보 수정 페이지
-class MemberAdjust extends StatelessWidget {
-  const MemberAdjust({Key? key}) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('이곳은 팀원 정보 수정 페이지입니다'),
-      ),
-    );
-  }
-}
+// //팀원 정보 수정 페이지
+// class MemberAdjust extends StatelessWidget {
+//   const MemberAdjust({Key? key}) : super(key: key);
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text('이곳은 팀원 정보 수정 페이지입니다'),
+//       ),
+//     );
+//   }
+// }
