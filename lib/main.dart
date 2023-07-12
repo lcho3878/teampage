@@ -1,13 +1,8 @@
-import 'dart:io'; // imagepicker 에 필요한 패키지 file관리
-
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
-import 'package:image_picker/image_picker.dart'; // 이미지피커
-=======
-import 'package:teampage/teamMember.dart';
+
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
->>>>>>> afc6d4572d5aa556368c7a75e7602943666fccb2
+import 'package:teampage/teamMember.dart';
 
 import 'enroll_service.dart';
 
@@ -97,388 +92,35 @@ class Team extends StatelessWidget {
   }
 }
 
-<<<<<<< HEAD
 // 팀원 소개 페이지
-class TeamMember extends StatelessWidget {
-  const TeamMember({Key? key}) : super(key: key);
+// class TeamMember extends StatelessWidget {
+//   const TeamMember({Key? key}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('팀원 소개'),
-      ),
-      body: Text('팀원을 등록해주세요'),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => MemberAdd()),
-          );
-        },
-        backgroundColor: Color(0xFFFF7E36),
-        elevation: 1,
-        child: Icon(
-          Icons.add_rounded,
-          size: 36,
-        ),
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text('팀원 소개'),
+//       ),
+//       body: Text('팀원을 등록해주세요'),
+//       floatingActionButton: FloatingActionButton(
+//         onPressed: () {
+//           Navigator.push(
+//             context,
+//             MaterialPageRoute(builder: (context) => MemberAdd()),
+//           );
+//         },
+//         backgroundColor: Color(0xFFFF7E36),
+//         elevation: 1,
+//         child: Icon(
+//           Icons.add_rounded,
+//           size: 36,
+//         ),
+//       ),
+//     );
+//   }
+// }
 
-// 팀원 등록 페이지
-class MemberAdd extends StatefulWidget {
-  const MemberAdd({Key? key}) : super(key: key);
-
-  @override
-  _MemberAddState createState() => _MemberAddState();
-}
-
-class _MemberAddState extends State<MemberAdd> {
-  PickedFile? _image; // 이미지 파일 저장할 변수
-  final ImagePicker _picker = ImagePicker();
-  // 텍스트 필드의 컨트롤러들
-  TextEditingController _nameController = TextEditingController();
-  TextEditingController _mbtiController = TextEditingController();
-  TextEditingController _advantageController = TextEditingController();
-  TextEditingController _collaborationStyleController = TextEditingController();
-  TextEditingController _urlController = TextEditingController();
-
-  @override
-  void dispose() {
-    // 컨트롤러해제.
-    _nameController.dispose();
-    _mbtiController.dispose();
-    _advantageController.dispose();
-    _collaborationStyleController.dispose();
-    _urlController.dispose();
-    super.dispose();
-  }
-
-  // 텍스트 필드 초기화 시키기
-  void _clearImageAndTextFields() {
-    _nameController.clear();
-    _mbtiController.clear();
-    _advantageController.clear();
-    _collaborationStyleController.clear();
-    _urlController.clear();
-    setState(() {
-      _image = null;
-    });
-  }
-
-  // 이미지 선택 다이얼로그 표시
-  void _showImageSourceDialog() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('이미지 선택'),
-          content: SingleChildScrollView(
-            child: ListBody(
-              children: <Widget>[
-                GestureDetector(
-                  child: Text('갤러리에서 선택'),
-                  onTap: () {
-                    _getImage(ImageSource.gallery); // 갤러리에서 이미지 선택
-                    Navigator.of(context).pop();
-                  },
-                ),
-                Padding(
-                  padding: EdgeInsets.all(8.0),
-                ),
-                GestureDetector(
-                  child: Text('카메라로 촬영'),
-                  onTap: () {
-                    _getImage(ImageSource.camera); // 카메라로 이미지 촬영
-                    Navigator.of(context).pop();
-                  },
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
-
-  // 이미지 선택 및 촬영 처리하는거
-  Future<void> _getImage(ImageSource source) async {
-    final pickedFile =
-        await _picker.pickImage(source: source); //pickimage는 비동기적으로 실행됨
-    setState(
-      () {
-        if (pickedFile != null) {
-          _image = PickedFile(pickedFile.path);
-        }
-      },
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        FocusScope.of(context).unfocus();
-      },
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('팀원 등록 하기'),
-          actions: [
-            IconButton(
-              icon: Icon(Icons.delete),
-              onPressed: () {
-                String name = _nameController.text;
-                String mbti = _mbtiController.text;
-                String advantage = _advantageController.text;
-                String collaborationStyle = _collaborationStyleController.text;
-                String url = _urlController.text;
-
-                if (name.isEmpty &&
-                    mbti.isEmpty &&
-                    advantage.isEmpty &&
-                    collaborationStyle.isEmpty &&
-                    url.isEmpty) {
-                  // 모든 텍스트 필드가 비어있을 때 이전화면으로 돌아가기
-                  Navigator.of(context).pop();
-                } else {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: Text('삭제 확인'),
-                        content: Text('정말로 삭제하시겠습니까?'),
-                        actions: [
-                          TextButton(
-                            child: Text('취소'),
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                          ),
-                          TextButton(
-                            child: Text('삭제'),
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                              _clearImageAndTextFields();
-                            },
-                          ),
-                        ],
-                      );
-                    },
-                  );
-                }
-              },
-            ),
-          ],
-        ),
-        body: SingleChildScrollView(
-          // 오버플로우 안나게
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.all(30),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      _showImageSourceDialog(); // 이미지선택하는 다이얼로그
-                    },
-                    child: Container(
-                      // 회색 직사각형
-                      width: 200,
-                      height: 250,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10), // 모서리 곡률
-                        color: Colors.grey,
-                        image: _image != null
-                            ? DecorationImage(
-                                // decorationimage = 배경으로 쓸수 있게하는 속성, 이미지가 null이 아닌경우 선택된이미지를표시하는
-                                image: FileImage(File(_image!
-                                    .path)), //선택한 이미지파일을 가져와서 fileimage로 변환, image!.path = 선택된이미지파일의 경로
-                                fit: BoxFit.cover,
-                              )
-                            : null, // 이미지가 선택되지 않은경우 null처리
-                      ),
-                      child: _image == null // 이미지가 선택되지 않았을때의 조건
-                          ? Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.camera_alt, // 카메라 아이콘
-                                  size: 58,
-                                  color: Colors.white,
-                                ),
-                                SizedBox(height: 10),
-                                Text(
-                                  '사진 등록',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                  ),
-                                ),
-                              ],
-                            )
-                          : null,
-                    ),
-                  ),
-                  SizedBox(height: 40),
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: 100,
-                        child: Text(
-                          '이   름    :',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: TextField(
-                          controller: _nameController,
-                          style: TextStyle(fontSize: 18),
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.grey,
-                                width: 2.0,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 20),
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: 100,
-                        child: Text(
-                          'MBTI   :',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: TextField(
-                          controller: _mbtiController,
-                          style: TextStyle(fontSize: 18),
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.grey,
-                                width: 2.0,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 20),
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: 100,
-                        child: Text(
-                          '장   점   :',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: TextField(
-                          controller: _advantageController,
-                          style: TextStyle(fontSize: 18),
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.grey,
-                                width: 2.0,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 20),
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: 100,
-                        child: Text(
-                          '협   업       스타일   :',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: TextField(
-                          controller: _collaborationStyleController,
-                          style: TextStyle(fontSize: 18),
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.grey,
-                                width: 2.0,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 20),
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: 100,
-                        child: Text(
-                          'U R L   :',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: TextField(
-                          controller: _urlController,
-                          style: TextStyle(fontSize: 18),
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.grey,
-                                width: 2.0,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-=======
->>>>>>> afc6d4572d5aa556368c7a75e7602943666fccb2
 //팀원 상세 설명 페이지
 class MemberDetail extends StatelessWidget {
   const MemberDetail({Key? key}) : super(key: key);

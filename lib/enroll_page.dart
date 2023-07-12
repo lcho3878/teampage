@@ -36,16 +36,16 @@ class _MemberAddState extends State<MemberAdd> {
   }
 
   // 텍스트 필드 초기화 시키기(예시, 삭제예정)
-  void _clearImageAndTextFields() {
-    // _nameController.clear();
-    // _mbtiController.clear();
-    // _advantageController.clear();
-    // _collaborationStyleController.clear();
-    // _urlController.clear();
-    setState(() {
-      _image = null;
-    });
-  }
+  // void _clearImageAndTextFields() {
+  //   // _nameController.clear();
+  //   // _mbtiController.clear();
+  //   // _advantageController.clear();
+  //   // _collaborationStyleController.clear();
+  //   // _urlController.clear();
+  //   setState(() {
+  //     _image = null;
+  //   });
+  // }
 
   // 이미지 선택 다이얼로그 표시
   void _showImageSourceDialog() {

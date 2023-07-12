@@ -90,4 +90,10 @@ class EnrollService with ChangeNotifier {
 
     memberList = memberJsonList.map((json) => Enroll.fromJson(json)).toList();
   }
+
+  void deleteMember(int index) {
+    memberList.removeAt(index);
+    saveMemberList();
+    notifyListeners();
+  }
 }

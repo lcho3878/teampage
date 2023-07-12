@@ -1,16 +1,13 @@
-// 팀원 소개 페이지
-// import 'dart:html';
+// team_member.dart
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:teampage/enroll_service.dart';
+import 'package:teampage/member_delete.dart';
 
 import 'enroll_page.dart';
 
-// List<String> infoList = ['', '', '', '', ''];aa
-
 class TeamMember extends StatefulWidget {
-  //상태 변경
   const TeamMember({Key? key}) : super(key: key);
 
   @override
@@ -22,7 +19,6 @@ class _TeamMemberState extends State<TeamMember> {
   Widget build(BuildContext context) {
     return Consumer<EnrollService>(
       builder: (context, enrollService, child) {
-        // enrollService 부터 memberList 가져오기
         List<Enroll> memberList = enrollService.memberList;
 
         return Scaffold(
@@ -39,8 +35,7 @@ class _TeamMemberState extends State<TeamMember> {
               : ListView.builder(
                   itemCount: memberList.length,
                   itemBuilder: (context, index) {
-                    Enroll enroll =
-                        memberList[index]; // index에 해당하는 memberlist 가져오기
+                    Enroll enroll = memberList[index];
 
                     return Padding(
                       padding: EdgeInsets.only(
@@ -60,7 +55,6 @@ class _TeamMemberState extends State<TeamMember> {
                               fit: BoxFit.cover,
                             ),
                           ),
-                          // Text('test'),
                           SizedBox(width: 13),
                           Expanded(
                             child: Column(
@@ -93,6 +87,17 @@ class _TeamMemberState extends State<TeamMember> {
                                 ),
                               ],
                             ),
+                          ),
+                          IconButton(
+                            icon: Icon(Icons.delete),
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return MemberDelete(index: index);
+                                },
+                              );
+                            },
                           ),
                         ],
                       ),
