@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:teampage/teamMember.dart';
 import 'package:provider/provider.dart';
-import 'package:teampage/teamMember_page.dart';
-import 'package:teampage/team_page.dart';
-import 'package:teampage/team_sevice.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
+import 'enroll_service.dart';
+
+late SharedPreferences prefs;
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  prefs = await SharedPreferences.getInstance();
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => TeamService()),
+        ChangeNotifierProvider(create: (context) => EnrollService()),
       ],
       child: const MyApp(),
     ),
@@ -90,56 +95,18 @@ class _HomePageState extends State<HomePage> {
 // class TeamMember extends StatelessWidget {
 //   const TeamMember({Key? key}) : super(key: key);
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('팀원 소개'),
-//       ),
-//       body: Text('팀원을 등록해주세요'),
-//       floatingActionButton: FloatingActionButton(
-//         onPressed: () {
-//           Navigator.push(
-//             context,
-//             MaterialPageRoute(builder: (context) => MemberAdd()),
-//           );
-//         },
-//         backgroundColor: Color(0xFFFF7E36),
-//         elevation: 1,
-//         child: Icon(
-//           Icons.add_rounded,
-//           size: 36,
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-// //팀원 등록 페이지
-// class MemberAdd extends StatelessWidget {
-//   const MemberAdd({Key? key}) : super(key: key);
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('이곳은 팀원 등록 페이지입니다'),
-//       ),
-//     );
-//   }
-// }
-
-// //팀원 상세 설명 페이지
-// class MemberDetail extends StatelessWidget {
-//   const MemberDetail({Key? key}) : super(key: key);
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('이곳은 팀원 등록 페이지입니다'),
-//       ),
-//     );
-//   }
-// }
+//팀원 상세 설명 페이지
+class MemberDetail extends StatelessWidget {
+  const MemberDetail({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('이곳은 팀원 등록 페이지입니다'),
+      ),
+    );
+  }
+}
 
 // //팀원 정보 수정 페이지
 // class MemberAdjust extends StatelessWidget {
