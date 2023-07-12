@@ -1,10 +1,29 @@
 import 'dart:io'; // imagepicker 에 필요한 패키지 file관리
 
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'package:image_picker/image_picker.dart'; // 이미지피커
+=======
+import 'package:teampage/teamMember.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+>>>>>>> afc6d4572d5aa556368c7a75e7602943666fccb2
 
-void main() {
-  runApp(const MyApp());
+import 'enroll_service.dart';
+
+late SharedPreferences prefs;
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  prefs = await SharedPreferences.getInstance();
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => EnrollService()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -78,6 +97,7 @@ class Team extends StatelessWidget {
   }
 }
 
+<<<<<<< HEAD
 // 팀원 소개 페이지
 class TeamMember extends StatelessWidget {
   const TeamMember({Key? key}) : super(key: key);
@@ -457,6 +477,8 @@ class _MemberAddState extends State<MemberAdd> {
   }
 }
 
+=======
+>>>>>>> afc6d4572d5aa556368c7a75e7602943666fccb2
 //팀원 상세 설명 페이지
 class MemberDetail extends StatelessWidget {
   const MemberDetail({Key? key}) : super(key: key);
