@@ -191,6 +191,9 @@ class _MemberAddState extends State<MemberAdd> {
                             child: Container(
                               margin: EdgeInsets.only(right: 20),
                               child: TextField(
+                                onChanged: (value) {
+                                  enroll.name = value;
+                                },
                                 controller: nameController,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(color: Colors.black),
@@ -220,6 +223,9 @@ class _MemberAddState extends State<MemberAdd> {
                             child: Container(
                               margin: EdgeInsets.only(right: 20),
                               child: TextField(
+                                onChanged: (value) {
+                                  enroll.mbti = value;
+                                },
                                 controller: mbtiController,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(color: Colors.black),
@@ -249,6 +255,9 @@ class _MemberAddState extends State<MemberAdd> {
                             child: Container(
                               margin: EdgeInsets.only(right: 20),
                               child: TextField(
+                                onChanged: (value) {
+                                  enroll.advantage = value;
+                                },
                                 controller: advController,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(color: Colors.black),
@@ -278,6 +287,9 @@ class _MemberAddState extends State<MemberAdd> {
                             child: Container(
                               margin: EdgeInsets.only(right: 20),
                               child: TextField(
+                                onChanged: (value) {
+                                  enroll.style = value;
+                                },
                                 controller: stlController,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(color: Colors.black),
@@ -309,6 +321,9 @@ class _MemberAddState extends State<MemberAdd> {
                             child: Container(
                               margin: EdgeInsets.only(right: 20),
                               child: TextField(
+                                onChanged: (value) {
+                                  enroll.url = value;
+                                },
                                 controller: urlController,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(color: Colors.black),
