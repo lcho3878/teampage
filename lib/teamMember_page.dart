@@ -10,14 +10,38 @@ class TeamMember extends StatefulWidget {
   State<TeamMember> createState() => _TeamMemberState();
 }
 
+class Teaminfo {
+  final String name;
+  final String mbti;
+  final String advantage;
+  final String cooperation;
+  final String url;
+
+  Teaminfo({
+    required this.name,
+    required this.mbti,
+    required this.advantage,
+    required this.cooperation,
+    required this.url,
+  });
+}
+
 class _TeamMemberState extends State<TeamMember> {
-  List<String> introList = [
-    "김지훈",
-    "INFJ",
-    "끈기",
-    "경청",
-    "https://luttoli.tistory.com/",
+  List<Teaminfo> introList = [
+    Teaminfo(
+        name: "김지훈",
+        mbti: "INFJ",
+        advantage: "생각",
+        cooperation: "경청",
+        url: "https://luttoli.tistory.com/"),
   ];
+  // Map<String, String> introList = {
+  //   "name": "김지훈",
+  //   "mbti": "INFJ",
+  //   "advantage": "생각",
+  //   "cooperation": "경청",
+  //   "url": "https://luttoli.tistory.com/",
+  // };
 
   @override
   Widget build(BuildContext context) {
@@ -30,9 +54,10 @@ class _TeamMemberState extends State<TeamMember> {
           : ListView.builder(
               itemCount: introList.length,
               itemBuilder: (context, index) {
-                String member = introList[index];
+                Teaminfo member = introList[index];
                 return ListTile(
-                  title: Text(member),
+                  title: Text(member.name),
+                  subtitle: Text(member.mbti),
                   onTap: () {
                     // 아이템 클릭시
                     Navigator.push(
@@ -40,7 +65,7 @@ class _TeamMemberState extends State<TeamMember> {
                       MaterialPageRoute(
                         builder: (_) => MemberDetail(
                           index: index,
-                          introList: introList,
+                          introList: [],
                         ),
                       ),
                     );
@@ -52,14 +77,14 @@ class _TeamMemberState extends State<TeamMember> {
         onPressed: () {
           String intro = '';
           setState(() {
-            introList.add(intro);
+            introList.add(intro as Teaminfo);
           });
           Navigator.push(
             context,
             MaterialPageRoute(
               builder: (_) => MemberDetail(
-                index: introList.indexOf(intro),
-                introList: introList,
+                index: introList.indexOf(intro as Teaminfo),
+                introList: [],
               ),
             ),
           );
