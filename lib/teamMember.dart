@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
 import 'package:teampage/enroll_service.dart';
-import 'package:teampage/member_delete.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import 'detail_page.dart';

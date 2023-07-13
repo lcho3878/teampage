@@ -106,16 +106,6 @@ class _MemberAddState extends State<MemberAdd> {
                 Navigator.pop(context);
               },
             ),
-            actions: <Widget>[
-              IconButton(
-                color: Colors.black,
-                icon: Icon(Icons.delete),
-                onPressed: () {
-                  // 아이콘 버튼 실행
-                  print('Shopping cart button is clicked');
-                },
-              ),
-            ],
           ),
           body: SingleChildScrollView(
             child: Column(
