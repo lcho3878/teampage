@@ -7,7 +7,6 @@ import 'package:teampage/teamMember.dart';
 
 import 'package:teampage/team_page.dart';
 
-
 import 'enroll_service.dart';
 
 late SharedPreferences prefs;

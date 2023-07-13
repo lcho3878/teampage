@@ -58,19 +58,9 @@ class _MemberAddState extends State<MemberAdd> {
             child: ListBody(
               children: <Widget>[
                 GestureDetector(
-                  child: Text('갤러리에서 선택'),
+                  child: Text('사진에서 선택'),
                   onTap: () {
                     _getImage(ImageSource.gallery); // 갤러리에서 이미지 선택
-                    Navigator.of(context).pop();
-                  },
-                ),
-                Padding(
-                  padding: EdgeInsets.all(8.0),
-                ),
-                GestureDetector(
-                  child: Text('카메라로 촬영'),
-                  onTap: () {
-                    _getImage(ImageSource.camera); // 카메라로 이미지 촬영
                     Navigator.of(context).pop();
                   },
                 ),
@@ -323,7 +313,6 @@ class _MemberAddState extends State<MemberAdd> {
                         ]),
                       ),
                       Container(
-
                         width: 140,
                         height: 35,
                         margin: EdgeInsets.only(top: 50),
@@ -344,7 +333,6 @@ class _MemberAddState extends State<MemberAdd> {
                           child: Text("등록"),
                         ),
                       ),
-
                     ],
                   ),
                 ),

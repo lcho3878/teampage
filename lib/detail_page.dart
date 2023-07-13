@@ -105,6 +105,15 @@ class _MemberDetailState extends State<MemberDetail> {
                 Navigator.pop(context);
               },
             ),
+            actions: [
+              IconButton(
+                color: Colors.black,
+                icon: Icon(Icons.delete),
+                onPressed: () {
+                  _showDeleteDialog(enrollService);
+                },
+              ),
+            ],
           ),
           body: SingleChildScrollView(
             child: Column(
@@ -301,6 +310,34 @@ class _MemberDetailState extends State<MemberDetail> {
               ],
             ),
           ),
+        );
+      },
+    );
+  }
+
+  void _showDeleteDialog(EnrollService enrollService) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('삭제 확인'),
+          content: Text('이 멤버를 삭제하시겠습니까?'),
+          actions: [
+            TextButton(
+              child: Text('취소'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: Text('삭제'),
+              onPressed: () {
+                enrollService.deleteMember(widget.index);
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
         );
       },
     );
