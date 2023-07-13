@@ -24,55 +24,57 @@ class _TeamMemberState extends State<TeamMember> {
         // enrollService 부터 memberList 가져오기
         List<Enroll> memberList = enrollService.memberList;
 
-        return Scaffold(
-          appBar: AppBar(
-            title: Text('팀원 소개'),
-          ),
-          body: memberList.isEmpty
-              ? Center(
-                  child: Text(
-                    '팀원을 등록해주세요.',
-                    style: TextStyle(fontSize: 20),
-                  ),
-                )
-              : ListView.builder(
-                  itemCount: memberList.length,
-                  itemBuilder: (context, index) {
-                    Enroll enroll =
-                        memberList[index]; // index에 해당하는 memberlist 가져오기
-
-                    return Padding(
-                      padding: EdgeInsets.only(
-                        left: 15,
-                        top: 15,
-                        bottom: 3,
-                      ),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          // 디테일 페이지 이동
-                          Container(
-                            width: 150,
-                            height: 180,
-                            child: GestureDetector(
-                              onTap: () async {
-                                await Navigator.push(
+        return Builder(builder: (context) {
+          return Scaffold(
+            appBar: AppBar(
+              title: Text('팀원 소개'),
+            ),
+            body: memberList.isEmpty
+                ? Center(
+                    child: Text(
+                      '팀원을 등록해주세요.',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  )
+                : ListView.builder(
+                    itemCount: memberList.length,
+                    itemBuilder: (context, index) {
+                      Enroll enroll =
+                          memberList[index]; // index에 해당하는 memberlist 가져오기
+                      return Padding(
+                        padding: EdgeInsets.only(
+                          left: 15,
+                          top: 15,
+                          bottom: 3,
+                        ),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          // 이미지 클릭 시 디테일페이지로 이동
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                     builder: (_) => MemberAdd(
-                                      index: index,
+                                      index: memberList.indexOf(enroll),
+                                      memberList: memberList,
+
                                     ),
                                   ),
                                 );
                               },
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(8),
+
                                 child: Image.file(
                                   File(enroll.imagepath),
+
                                   fit: BoxFit.cover,
                                 ),
                               ),
                             ),
+
                           ),
                           SizedBox(width: 13),
                           Expanded(
@@ -102,6 +104,7 @@ class _TeamMemberState extends State<TeamMember> {
                                     style: TextStyle(fontSize: 18),
                                   ),
                                   SizedBox(height: 8),
+
                                   GestureDetector(
                                     child: Text(
                                       'URL : ${enroll.url}',
@@ -116,31 +119,42 @@ class _TeamMemberState extends State<TeamMember> {
                                         ),
                                       );
                                     },
+
                                   ),
                                 ],
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                ),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => MemberAdd()),
-              );
-            },
-            backgroundColor: Color(0xFFFF7E36),
-            elevation: 1,
-            child: Icon(
-              Icons.add_rounded,
-              size: 36,
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+            floatingActionButton: FloatingActionButton(
+              onPressed: () {
+                Enroll enroll = Enroll(
+                    name: "", mbti: "", advantage: "", style: "", url: "");
+                setState(() {
+                  memberList.add(enroll);
+                });
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => MemberAdd(
+                      index: memberList.indexOf(enroll),
+                      memberList: [],
+                    ),
+                  ),
+                );
+              },
+              backgroundColor: Color(0xFFFF7E36),
+              elevation: 1,
+              child: Icon(
+                Icons.add_rounded,
+                size: 36,
+              ),
             ),
-          ),
-        );
+          );
+        });
       },
     );
   }
