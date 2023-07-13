@@ -1,16 +1,15 @@
-// 팀원 소개 페이지
-import 'dart:io';
+// team_member.dart
 
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
 import 'package:teampage/enroll_service.dart';
-import 'package:webview_flutter/webview_flutter.dart';
+import 'package:teampage/member_delete.dart';
 
 import 'detail_page.dart';
 import 'enroll_page.dart';
 
 class TeamMember extends StatefulWidget {
-  //상태 변경
   const TeamMember({Key? key}) : super(key: key);
 
   @override
@@ -22,27 +21,65 @@ class _TeamMemberState extends State<TeamMember> {
   Widget build(BuildContext context) {
     return Consumer<EnrollService>(
       builder: (context, enrollService, child) {
-        // enrollService 부터 memberList 가져오기
         List<Enroll> memberList = enrollService.memberList;
 
-        return Builder(builder: (context) {
-          return Scaffold(
-            appBar: AppBar(
-              title: Text('팀원 소개'),
-            ),
-            body: memberList.isEmpty
-                ? Center(
-                    child: Text(
-                      '팀원을 등록해주세요.',
-                      style: TextStyle(fontSize: 20),
-                    ),
-                  )
-                : ListView.builder(
-                    itemCount: memberList.length,
-                    itemBuilder: (context, index) {
-                      Enroll enroll =
-                          memberList[index]; // index에 해당하는 memberlist 가져오기
-                      return Padding(
+
+        return Scaffold(
+          appBar: AppBar(
+            title: Text('팀원 소개'),
+          ),
+          body: memberList.isEmpty
+              ? Center(
+                  child: Text(
+                    '팀원을 등록해주세요.',
+                    style: TextStyle(fontSize: 20),
+                  ),
+                )
+              : ListView.builder(
+                  itemCount: memberList.length,
+                  itemBuilder: (context, index) {
+                    Enroll enroll = memberList[index];
+
+                    return Slidable(
+                      key: UniqueKey(),
+                      endActionPane: ActionPane(
+                        motion: const ScrollMotion(),
+                        dismissible: DismissiblePane(
+                          onDismissed: () {
+                            enrollService.deleteMember(index);
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text("멤버가 삭제 되었습니다!")));
+                          },
+                        ),
+                        children: [
+                          SlidableAction(
+                            onPressed: (context) {},
+                            backgroundColor: Colors.red,
+                            icon: Icons.delete,
+                            label: 'Delete',
+                          ),
+                        ],
+                      ),
+                      child: Padding(
+
+//         return Builder(builder: (context) {
+//           return Scaffold(
+//             appBar: AppBar(
+//               title: Text('팀원 소개'),
+//             ),
+//             body: memberList.isEmpty
+//                 ? Center(
+//                     child: Text(
+//                       '팀원을 등록해주세요.',
+//                       style: TextStyle(fontSize: 20),
+//                     ),
+//                   )
+//                 : ListView.builder(
+//                     itemCount: memberList.length,
+//                     itemBuilder: (context, index) {
+//                       Enroll enroll =
+//                           memberList[index]; // index에 해당하는 memberlist 가져오기
+//                       return Padding(
                         padding: EdgeInsets.only(
                           left: 15,
                           top: 15,
@@ -50,6 +87,7 @@ class _TeamMemberState extends State<TeamMember> {
                         ),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
+
                           // 이미지 클릭 시 디테일페이지로 이동
                           children: [
                             Container(
@@ -74,10 +112,12 @@ class _TeamMemberState extends State<TeamMember> {
                                     fit: BoxFit.cover,
                                   ),
                                 ),
+
                               ),
                             ),
                             SizedBox(width: 13),
                             Expanded(
+
                               child: Padding(
                                 padding: const EdgeInsets.only(right: 3),
                                 child: Column(
@@ -145,28 +185,11 @@ class _TeamMemberState extends State<TeamMember> {
                 Icons.add_rounded,
                 size: 36,
               ),
+
             ),
           );
         });
       },
-    );
-  }
-}
-
-// 웹뷰(url 링크)
-class WebViewPage extends StatelessWidget {
-  WebViewPage({super.key, required this.url});
-
-  String url;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.grey,
-        title: Text(url),
-      ),
-      body: WebView(initialUrl: url),
     );
   }
 }

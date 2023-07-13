@@ -35,6 +35,18 @@ class _MemberAddState extends State<MemberAdd> {
     super.dispose();
   }
 
+  // 텍스트 필드 초기화 시키기(예시, 삭제예정)
+  // void _clearImageAndTextFields() {
+  //   // _nameController.clear();
+  //   // _mbtiController.clear();
+  //   // _advantageController.clear();
+  //   // _collaborationStyleController.clear();
+  //   // _urlController.clear();
+  //   setState(() {
+  //     _image = null;
+  //   });
+  // }
+
   // 이미지 선택 다이얼로그 표시
   void _showImageSourceDialog() {
     showDialog(
@@ -46,9 +58,19 @@ class _MemberAddState extends State<MemberAdd> {
             child: ListBody(
               children: <Widget>[
                 GestureDetector(
-                  child: Text('사진에서 선택'),
+                  child: Text('갤러리에서 선택'),
                   onTap: () {
-                    _getImage(ImageSource.gallery); // 사진앱에서 이미지 선택
+                    _getImage(ImageSource.gallery); // 갤러리에서 이미지 선택
+                    Navigator.of(context).pop();
+                  },
+                ),
+                Padding(
+                  padding: EdgeInsets.all(8.0),
+                ),
+                GestureDetector(
+                  child: Text('카메라로 촬영'),
+                  onTap: () {
+                    _getImage(ImageSource.camera); // 카메라로 이미지 촬영
                     Navigator.of(context).pop();
                   },
                 ),
@@ -94,6 +116,16 @@ class _MemberAddState extends State<MemberAdd> {
                 Navigator.pop(context);
               },
             ),
+            actions: <Widget>[
+              IconButton(
+                color: Colors.black,
+                icon: Icon(Icons.delete),
+                onPressed: () {
+                  // 아이콘 버튼 실행
+                  print('Shopping cart button is clicked');
+                },
+              ),
+            ],
           ),
           body: SingleChildScrollView(
             child: Column(
@@ -281,7 +313,7 @@ class _MemberAddState extends State<MemberAdd> {
                                 style: TextStyle(color: Colors.black),
                                 decoration: InputDecoration(
                                     border: InputBorder.none,
-                                    hintText: '블로그 URL',
+                                    hintText: '블로그 url',
                                     hintStyle:
                                         TextStyle(color: Colors.grey[300])),
                                 cursorColor: Colors.blue,
@@ -291,6 +323,7 @@ class _MemberAddState extends State<MemberAdd> {
                         ]),
                       ),
                       Container(
+
                         width: 140,
                         height: 35,
                         margin: EdgeInsets.only(top: 50),
@@ -311,6 +344,7 @@ class _MemberAddState extends State<MemberAdd> {
                           child: Text("등록"),
                         ),
                       ),
+
                     ],
                   ),
                 ),

@@ -39,6 +39,7 @@ dependencies:
   intl: ^0.18.1
   image_picker: ^1.0.0
   webview_flutter: ^3.0.4
+  flutter_slidable: ^3.0.0
 
 dev_dependencies:
   flutter_test:

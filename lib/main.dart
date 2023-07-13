@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:teampage/teamMember.dart';
+
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'package:teampage/teamMember.dart';
+
 import 'package:teampage/team_page.dart';
+
 
 import 'enroll_service.dart';
 
