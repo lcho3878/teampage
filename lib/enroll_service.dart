@@ -10,6 +10,7 @@ class Enroll {
   String advantage;
   String style;
   String url;
+  String imagepath;
 
   // 생성자
   Enroll({
@@ -18,6 +19,7 @@ class Enroll {
     required this.advantage,
     required this.style,
     required this.url,
+    required this.imagepath,
   });
 
   Map toJson() {
@@ -27,6 +29,7 @@ class Enroll {
       'advantage': advantage,
       'style': style,
       'url': url,
+      'imagepath': imagepath,
     };
   }
 
@@ -37,6 +40,7 @@ class Enroll {
       advantage: json['advantage'] ?? '',
       style: json['style'] ?? '',
       url: json['url'] ?? '',
+      imagepath: json['imagepath'] ?? '',
     );
   }
 }
@@ -62,11 +66,19 @@ class EnrollService with ChangeNotifier {
     required String advantage,
     required String style,
     required String url,
+    required String imagepath,
   }) {
     Enroll enroll = Enroll(
-        name: name, mbti: mbti, advantage: advantage, style: style, url: url);
-    // memberList.add(enroll);
+      name: name,
+      mbti: mbti,
+      advantage: advantage,
+      style: style,
+      url: url,
+      imagepath: imagepath,
+    );
     memberList[index] = enroll; // 인덱스 받아서 덮어쓰기
+    memberList.add(enroll);
+
     notifyListeners(); // Consumer<enrollService>의 builder 부분을 호출해서 화면 새로고침
     saveMemberList();
   }
@@ -93,7 +105,8 @@ class EnrollService with ChangeNotifier {
 
     memberList = memberJsonList.map((json) => Enroll.fromJson(json)).toList();
   }
-
+  
+  // 삭제 필요 시 삭제 예정
   // updateMember(
   //     {required int index,
   //     required String name,

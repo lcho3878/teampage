@@ -48,19 +48,9 @@ class _MemberAddState extends State<MemberAdd> {
             child: ListBody(
               children: <Widget>[
                 GestureDetector(
-                  child: Text('갤러리에서 선택'),
+                  child: Text('사진에서 선택'),
                   onTap: () {
-                    _getImage(ImageSource.gallery); // 갤러리에서 이미지 선택
-                    Navigator.of(context).pop();
-                  },
-                ),
-                Padding(
-                  padding: EdgeInsets.all(8.0),
-                ),
-                GestureDetector(
-                  child: Text('카메라로 촬영'),
-                  onTap: () {
-                    _getImage(ImageSource.camera); // 카메라로 이미지 촬영
+                    _getImage(ImageSource.gallery); // 사진앱에서 이미지 선택
                     Navigator.of(context).pop();
                   },
                 ),
@@ -117,16 +107,6 @@ class _MemberAddState extends State<MemberAdd> {
                 Navigator.pop(context);
               },
             ),
-            actions: <Widget>[
-              IconButton(
-                color: Colors.black,
-                icon: Icon(Icons.delete),
-                onPressed: () {
-                  // 아이콘 버튼 실행
-                  print('Shopping cart button is clicked');
-                },
-              ),
-            ],
           ),
           body: SingleChildScrollView(
             child: Column(
@@ -314,7 +294,7 @@ class _MemberAddState extends State<MemberAdd> {
                                 style: TextStyle(color: Colors.black),
                                 decoration: InputDecoration(
                                     border: InputBorder.none,
-                                    hintText: '블로그 url',
+                                    hintText: '블로그 URL',
                                     hintStyle:
                                         TextStyle(color: Colors.grey[300])),
                                 cursorColor: Colors.blue,
@@ -337,6 +317,7 @@ class _MemberAddState extends State<MemberAdd> {
                               advantage: advController.text,
                               style: stlController.text,
                               url: urlController.text,
+                              imagepath: _image!.path,
                             );
                             Navigator.pop(context);
                           },
