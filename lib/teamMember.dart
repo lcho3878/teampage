@@ -51,77 +51,75 @@ class _TeamMemberState extends State<TeamMember> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           // 이미지 클릭 시 디테일페이지로 이동
                           children: [
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (_) => MemberAdd(
-                                      index: memberList.indexOf(enroll),
-                                      memberList: memberList,
-
+                            Container(
+                              width: 150,
+                              height: 180,
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (_) => MemberAdd(
+                                        index: memberList.indexOf(enroll),
+                                        memberList: memberList,
+                                      ),
                                     ),
+                                  );
+                                },
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(8),
+                                  child: Image.file(
+                                    File(enroll.imagepath),
+                                    fit: BoxFit.cover,
                                   ),
-                                );
-                              },
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(8),
-
-                                child: Image.file(
-                                  File(enroll.imagepath),
-
-                                  fit: BoxFit.cover,
                                 ),
                               ),
                             ),
-
-                          ),
-                          SizedBox(width: 13),
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.only(right: 3),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SizedBox(height: 7),
-                                  Text(
-                                    '이름 : ${enroll.name}',
-                                    style: TextStyle(fontSize: 18),
-                                  ),
-                                  SizedBox(height: 8),
-                                  Text(
-                                    'MBTI : ${enroll.mbti}',
-                                    style: TextStyle(fontSize: 18),
-                                  ),
-                                  SizedBox(height: 8),
-                                  Text(
-                                    '장점 : ${enroll.advantage}',
-                                    style: TextStyle(fontSize: 18),
-                                  ),
-                                  SizedBox(height: 8),
-                                  Text(
-                                    '협업스타일 : ${enroll.style}',
-                                    style: TextStyle(fontSize: 18),
-                                  ),
-                                  SizedBox(height: 8),
-
-                                  GestureDetector(
-                                    child: Text(
-                                      'URL : ${enroll.url}',
+                            SizedBox(width: 13),
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.only(right: 3),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(height: 7),
+                                    Text(
+                                      '이름 : ${enroll.name}',
                                       style: TextStyle(fontSize: 18),
                                     ),
-                                    onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              WebViewPage(url: '${enroll.url}'),
-                                        ),
-                                      );
-                                    },
-
-                                  ),
-                                ],
+                                    SizedBox(height: 8),
+                                    Text(
+                                      'MBTI : ${enroll.mbti}',
+                                      style: TextStyle(fontSize: 18),
+                                    ),
+                                    SizedBox(height: 8),
+                                    Text(
+                                      '장점 : ${enroll.advantage}',
+                                      style: TextStyle(fontSize: 18),
+                                    ),
+                                    SizedBox(height: 8),
+                                    Text(
+                                      '협업스타일 : ${enroll.style}',
+                                      style: TextStyle(fontSize: 18),
+                                    ),
+                                    SizedBox(height: 8),
+                                    GestureDetector(
+                                      child: Text(
+                                        'URL : ${enroll.url}',
+                                        style: TextStyle(fontSize: 18),
+                                      ),
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => WebViewPage(
+                                                url: '${enroll.url}'),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ],
@@ -132,7 +130,12 @@ class _TeamMemberState extends State<TeamMember> {
             floatingActionButton: FloatingActionButton(
               onPressed: () {
                 Enroll enroll = Enroll(
-                    name: "", mbti: "", advantage: "", style: "", url: "");
+                    name: "",
+                    mbti: "",
+                    advantage: "",
+                    style: "",
+                    url: "",
+                    imagepath: '');
                 setState(() {
                   memberList.add(enroll);
                 });

@@ -77,7 +77,7 @@ class EnrollService with ChangeNotifier {
       imagepath: imagepath,
     );
     memberList[index] = enroll; // 인덱스 받아서 덮어쓰기
-    memberList.add(enroll);
+    // memberList.add(enroll);
 
     notifyListeners(); // Consumer<enrollService>의 builder 부분을 호출해서 화면 새로고침
     saveMemberList();
@@ -105,7 +105,7 @@ class EnrollService with ChangeNotifier {
 
     memberList = memberJsonList.map((json) => Enroll.fromJson(json)).toList();
   }
-  
+
   // 삭제 필요 시 삭제 예정
   // updateMember(
   //     {required int index,
