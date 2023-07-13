@@ -191,15 +191,6 @@ class _MemberAddState extends State<MemberAdd> {
                             child: Container(
                               margin: EdgeInsets.only(right: 20),
                               child: TextField(
-                                // onChanged: (value) {
-                                //   enrollService.updateMember(
-                                //       index: widget.index,
-                                //       name: value,
-                                //       mbti: value,
-                                //       advantage: value,
-                                //       style: value,
-                                //       url: value);
-                                // },
                                 controller: nameController,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(color: Colors.black),
@@ -229,10 +220,6 @@ class _MemberAddState extends State<MemberAdd> {
                             child: Container(
                               margin: EdgeInsets.only(right: 20),
                               child: TextField(
-                                // onChanged: (value) {
-                                //   enrollService.updateMember(
-                                //       index: widget.index, mbti: mbti);
-                                // },
                                 controller: mbtiController,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(color: Colors.black),
@@ -262,10 +249,6 @@ class _MemberAddState extends State<MemberAdd> {
                             child: Container(
                               margin: EdgeInsets.only(right: 20),
                               child: TextField(
-                                // onChanged: (value) {
-                                //   enrollService.updateMember(
-                                //       index: widget.index, advantage: value);
-                                // },
                                 controller: advController,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(color: Colors.black),
@@ -295,10 +278,6 @@ class _MemberAddState extends State<MemberAdd> {
                             child: Container(
                               margin: EdgeInsets.only(right: 20),
                               child: TextField(
-                                // onChanged: (value) {
-                                //   enrollService.updateMember(
-                                //       index: widget.index, style: value);
-                                // },
                                 controller: stlController,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(color: Colors.black),
@@ -330,10 +309,6 @@ class _MemberAddState extends State<MemberAdd> {
                             child: Container(
                               margin: EdgeInsets.only(right: 20),
                               child: TextField(
-                                // onChanged: (value) {
-                                //   enrollService.updateMember(
-                                //       index: widget.index, url: value);
-                                // },
                                 controller: urlController,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(color: Colors.black),
@@ -363,7 +338,6 @@ class _MemberAddState extends State<MemberAdd> {
                               style: stlController.text,
                               url: urlController.text,
                             );
-
                             Navigator.pop(context);
                           },
                           child: Text("등록"),

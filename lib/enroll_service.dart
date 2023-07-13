@@ -55,6 +55,7 @@ class EnrollService with ChangeNotifier {
 
   // 등록 기능
   createMember({
+    // 네이밍 고려
     required int index,
     required String name,
     required String mbti,
@@ -65,7 +66,7 @@ class EnrollService with ChangeNotifier {
     Enroll enroll = Enroll(
         name: name, mbti: mbti, advantage: advantage, style: style, url: url);
     // memberList.add(enroll);
-    memberList[index] = enroll;
+    memberList[index] = enroll; // 인덱스 받아서 덮어쓰기
     notifyListeners(); // Consumer<enrollService>의 builder 부분을 호출해서 화면 새로고침
     saveMemberList();
   }

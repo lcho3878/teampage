@@ -124,12 +124,6 @@ class _TeamMemberState extends State<TeamMember> {
                   MaterialPageRoute(
                     builder: (context) => MemberAdd(
                       index: memberList.indexOf(enroll),
-                      // index: memberList.indexOf(Enroll(
-                      //     name: 'name',
-                      //     mbti: 'mbti',
-                      //     advantage: 'advantage',
-                      //     style: 'style',
-                      //     url: 'url')),
                       memberList: [],
                     ),
                   ),
