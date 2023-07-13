@@ -5,15 +5,17 @@ import 'package:provider/provider.dart';
 import 'package:teampage/enroll_service.dart';
 import 'package:image_picker/image_picker.dart';
 
-class MemberAdd extends StatefulWidget {
-  const MemberAdd({Key? key, required this.memberList}) : super(key: key);
+class MemberDetail extends StatefulWidget {
+  const MemberDetail({Key? key, required this.memberList, required this.index})
+      : super(key: key);
   final List<Enroll> memberList;
+  final int index;
 
   @override
-  State<MemberAdd> createState() => _MemberAddState();
+  State<MemberDetail> createState() => _MemberDetailState();
 }
 
-class _MemberAddState extends State<MemberAdd> {
+class _MemberDetailState extends State<MemberDetail> {
   PickedFile? _image; // 이미지 파일 저장할 변수
   final ImagePicker _picker = ImagePicker();
 
@@ -74,6 +76,15 @@ class _MemberAddState extends State<MemberAdd> {
 
   @override
   Widget build(BuildContext context) {
+    EnrollService enrollService = context.read<EnrollService>();
+    Enroll enroll = enrollService.memberList[widget.index];
+
+    nameController.text = enroll.name;
+    mbtiController.text = enroll.mbti;
+    advController.text = enroll.advantage;
+    stlController.text = enroll.style;
+    urlController.text = enroll.url;
+
     return Consumer<EnrollService>(
       builder: (context, enrollService, child) {
         return Scaffold(
@@ -100,43 +111,16 @@ class _MemberAddState extends State<MemberAdd> {
               children: [
                 SizedBox(height: 40),
                 GestureDetector(
-                  onTap: () {
-                    _showImageSourceDialog(); // 이미지선택하는 다이얼로그
-                  },
+                  // 수정 페이지에서 사진 변경하는 기능은 추후 구현 예정
+                  // onTap: () {
+                  //   _showImageSourceDialog(); // 이미지선택하는 다이얼로그
+                  //   // enroll.imagepath = _image!.path;
+                  // },
                   child: Container(
+                    child: Image.file(File(enroll.imagepath)),
                     // 회색 직사각형
                     width: 200,
                     height: 250,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10), // 모서리 곡률
-                      color: Colors.grey,
-                      image: _image != null
-                          ? DecorationImage(
-                              image: FileImage(File(_image!.path)),
-                              fit: BoxFit.cover,
-                            )
-                          : null,
-                    ),
-                    child: _image == null
-                        ? Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.camera_alt, // 카메라 아이콘
-                                size: 58,
-                                color: Colors.white,
-                              ),
-                              SizedBox(height: 10),
-                              Text(
-                                '사진 등록',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                ),
-                              ),
-                            ],
-                          )
-                        : null,
                   ),
                 ),
                 Container(
@@ -297,14 +281,14 @@ class _MemberAddState extends State<MemberAdd> {
                         child: ElevatedButton(
                           // 저장 기능
                           onPressed: () {
-                            enrollService.createMember(
-                              // index: widget.index,
+                            enrollService.saveMember(
+                              index: widget.index,
                               name: nameController.text,
                               mbti: mbtiController.text,
                               advantage: advController.text,
                               style: stlController.text,
                               url: urlController.text,
-                              imagepath: _image!.path,
+                              // imagepath: _image!.path,
                             );
                             Navigator.pop(context);
                           },

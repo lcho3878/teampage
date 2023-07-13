@@ -57,10 +57,29 @@ class EnrollService with ChangeNotifier {
     // Enroll(name: '이름', mbti: 'intj', advantage: '', style: '', url: ''),
   ];
 
-  // 등록 기능
-  createMember({
+  // 수정 기능
+  saveMember({
     // 네이밍 고려
     required int index,
+    required String name,
+    required String mbti,
+    required String advantage,
+    required String style,
+    required String url,
+  }) {
+    memberList[index].name = name; // 인덱스 받아서 덮어쓰기
+    memberList[index].mbti = mbti;
+    memberList[index].advantage = advantage;
+    memberList[index].style = style;
+    memberList[index].url = url;
+
+    notifyListeners(); // Consumer<enrollService>의 builder 부분을 호출해서 화면 새로고침
+    saveMemberList();
+  }
+
+// 등록 기능
+  createMember({
+// 네이밍 고려
     required String name,
     required String mbti,
     required String advantage,
@@ -76,9 +95,7 @@ class EnrollService with ChangeNotifier {
       url: url,
       imagepath: imagepath,
     );
-    memberList[index] = enroll; // 인덱스 받아서 덮어쓰기
-    // memberList.add(enroll);
-
+    memberList.add(enroll);
     notifyListeners(); // Consumer<enrollService>의 builder 부분을 호출해서 화면 새로고침
     saveMemberList();
   }
@@ -105,21 +122,4 @@ class EnrollService with ChangeNotifier {
 
     memberList = memberJsonList.map((json) => Enroll.fromJson(json)).toList();
   }
-
-  // 삭제 필요 시 삭제 예정
-  // updateMember(
-  //     {required int index,
-  //     required String name,
-  //     required String mbti,
-  //     required String advantage,
-  //     required String style,
-  //     required String url}) {
-  //   Enroll enroll = memberList[index];
-  //   enroll.name = name;
-  //   enroll.mbti = mbti;
-  //   enroll.advantage = advantage;
-  //   enroll.style = style;
-  //   enroll.url = url;
-  //   notifyListeners();
-  // }
 }

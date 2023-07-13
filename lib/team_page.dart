@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:teampage/enroll_page.dart';
+import 'package:teampage/teamMember.dart';
 
 class TeamPage extends StatefulWidget {
   const TeamPage({Key? key}) : super(key: key);
@@ -34,10 +34,7 @@ class _TeamPageState extends State<TeamPage> {
               child: Team(),
             ),
             Tab(
-              child: MemberAdd(
-                index: 0,
-                memberList: [],
-              ),
+              child: TeamMember(),
             ),
           ],
         ),

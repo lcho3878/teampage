@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:teampage/enroll_service.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
+import 'detail_page.dart';
 import 'enroll_page.dart';
 
 class TeamMember extends StatefulWidget {
@@ -59,7 +60,7 @@ class _TeamMemberState extends State<TeamMember> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (_) => MemberAdd(
+                                      builder: (_) => MemberDetail(
                                         index: memberList.indexOf(enroll),
                                         memberList: memberList,
                                       ),
@@ -129,22 +130,11 @@ class _TeamMemberState extends State<TeamMember> {
                   ),
             floatingActionButton: FloatingActionButton(
               onPressed: () {
-                Enroll enroll = Enroll(
-                    name: "",
-                    mbti: "",
-                    advantage: "",
-                    style: "",
-                    url: "",
-                    imagepath: '');
-                setState(() {
-                  memberList.add(enroll);
-                });
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => MemberAdd(
-                      index: memberList.indexOf(enroll),
-                      memberList: [],
+                      memberList: memberList,
                     ),
                   ),
                 );
