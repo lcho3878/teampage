@@ -109,16 +109,19 @@ class _TeamMemberState extends State<TeamMember> {
                                 ],
                               ),
                             ),
-                            IconButton(
-                              icon: Icon(Icons.delete),
-                              onPressed: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return MemberDelete(index: index);
-                                  },
-                                );
-                              },
+                            Container(
+                              height: 180,
+                              child: IconButton(
+                                icon: Icon(Icons.delete),
+                                onPressed: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return MemberDelete(index: index);
+                                    },
+                                  );
+                                },
+                              ),
                             ),
                           ],
                         ),
