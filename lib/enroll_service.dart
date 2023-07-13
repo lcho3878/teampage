@@ -59,7 +59,7 @@ class EnrollService with ChangeNotifier {
         advantage: '소통',
         style: '존중',
         url: 'https://velog.io/@leech3878',
-        imagepath: 'images/jihoon.png'),
+        imagepath: 'images/chanho.png'),
     Enroll(
         name: '김지훈',
         mbti: 'INFJ',
@@ -80,7 +80,7 @@ class EnrollService with ChangeNotifier {
         advantage: '이성적 멘탈관리',
         style: '능동적, 상호관계존중, 배려',
         url: 'https://kylestory.tistory.com/',
-        imagepath: 'images/jihoon.png'),
+        imagepath: 'images/jigun.png'),
     Enroll(
         name: '천광조',
         mbti: 'ISTJ',

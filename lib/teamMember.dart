@@ -119,8 +119,8 @@ class _TeamMemberState extends State<TeamMember> {
                                         ? Image.asset(
                                             'images/noimage.png',
                                           )
-                                        : Image.file(
-                                            File(enroll.imagepath),
+                                        : Image.asset(
+                                            enroll.imagepath,
                                             fit: BoxFit.cover,
                                           ),
                                   ),

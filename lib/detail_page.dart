@@ -133,8 +133,8 @@ class _MemberDetailState extends State<MemberDetail> {
                                 'images/noimage.png',
                                 fit: BoxFit.cover,
                               )
-                            : Image.file(
-                                File(enroll.imagepath),
+                            : Image.asset(
+                                enroll.imagepath,
                                 fit: BoxFit.cover,
                               ),
                     // 회색 직사각형
