@@ -65,9 +65,12 @@ class _TeamMemberState extends State<TeamMember> {
                                   ),
                                 );
                               },
-                              child: Image.file(
-                                File(enroll.imagepath),
-                                fit: BoxFit.cover,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(8),
+                                child: Image.file(
+                                  File(enroll.imagepath),
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
                           ),
