@@ -32,7 +32,7 @@ class Enroll {
 
   factory Enroll.fromJson(json) {
     return Enroll(
-      name: json['name'],
+      name: json['name'] ?? '',
       mbti: json['mbti'] ?? '',
       advantage: json['advantage'] ?? '',
       style: json['style'] ?? '',
@@ -53,8 +53,29 @@ class EnrollService with ChangeNotifier {
     // Enroll(name: '이름', mbti: 'intj', advantage: '', style: '', url: ''),
   ];
 
-  // 등록 기능
+  // 수정 기능
+  saveMember({
+    // 네이밍 고려
+    required int index,
+    required String name,
+    required String mbti,
+    required String advantage,
+    required String style,
+    required String url,
+  }) {
+    memberList[index].name = name; // 인덱스 받아서 덮어쓰기
+    memberList[index].mbti = mbti;
+    memberList[index].advantage = advantage;
+    memberList[index].style = style;
+    memberList[index].url = url;
+
+    notifyListeners(); // Consumer<enrollService>의 builder 부분을 호출해서 화면 새로고침
+    saveMemberList();
+  }
+
+// 등록 기능
   createMember({
+// 네이밍 고려
     required String name,
     required String mbti,
     required String advantage,

@@ -5,15 +5,17 @@ import 'package:provider/provider.dart';
 import 'package:teampage/enroll_service.dart';
 import 'package:image_picker/image_picker.dart';
 
-class MemberAdd extends StatefulWidget {
-  const MemberAdd({Key? key, required this.memberList}) : super(key: key);
+class MemberDetail extends StatefulWidget {
+  const MemberDetail({Key? key, required this.memberList, required this.index})
+      : super(key: key);
   final List<Enroll> memberList;
+  final int index;
 
   @override
-  State<MemberAdd> createState() => _MemberAddState();
+  State<MemberDetail> createState() => _MemberDetailState();
 }
 
-class _MemberAddState extends State<MemberAdd> {
+class _MemberDetailState extends State<MemberDetail> {
   PickedFile? _image; // 이미지 파일 저장할 변수
   final ImagePicker _picker = ImagePicker();
 
@@ -35,18 +37,6 @@ class _MemberAddState extends State<MemberAdd> {
     super.dispose();
   }
 
-  // 텍스트 필드 초기화 시키기(예시, 삭제예정)
-  // void _clearImageAndTextFields() {
-  //   // _nameController.clear();
-  //   // _mbtiController.clear();
-  //   // _advantageController.clear();
-  //   // _collaborationStyleController.clear();
-  //   // _urlController.clear();
-  //   setState(() {
-  //     _image = null;
-  //   });
-  // }
-
   // 이미지 선택 다이얼로그 표시
   void _showImageSourceDialog() {
     showDialog(
@@ -58,19 +48,9 @@ class _MemberAddState extends State<MemberAdd> {
             child: ListBody(
               children: <Widget>[
                 GestureDetector(
-                  child: Text('갤러리에서 선택'),
+                  child: Text('사진에서 선택'),
                   onTap: () {
-                    _getImage(ImageSource.gallery); // 갤러리에서 이미지 선택
-                    Navigator.of(context).pop();
-                  },
-                ),
-                Padding(
-                  padding: EdgeInsets.all(8.0),
-                ),
-                GestureDetector(
-                  child: Text('카메라로 촬영'),
-                  onTap: () {
-                    _getImage(ImageSource.camera); // 카메라로 이미지 촬영
+                    _getImage(ImageSource.gallery); // 사진앱에서 이미지 선택
                     Navigator.of(context).pop();
                   },
                 ),
@@ -96,6 +76,15 @@ class _MemberAddState extends State<MemberAdd> {
 
   @override
   Widget build(BuildContext context) {
+    EnrollService enrollService = context.read<EnrollService>();
+    Enroll enroll = enrollService.memberList[widget.index];
+
+    nameController.text = enroll.name;
+    mbtiController.text = enroll.mbti;
+    advController.text = enroll.advantage;
+    stlController.text = enroll.style;
+    urlController.text = enroll.url;
+
     return Consumer<EnrollService>(
       builder: (context, enrollService, child) {
         return Scaffold(
@@ -116,59 +105,22 @@ class _MemberAddState extends State<MemberAdd> {
                 Navigator.pop(context);
               },
             ),
-            actions: <Widget>[
-              IconButton(
-                color: Colors.black,
-                icon: Icon(Icons.delete),
-                onPressed: () {
-                  // 아이콘 버튼 실행
-                  print('Shopping cart button is clicked');
-                },
-              ),
-            ],
           ),
           body: SingleChildScrollView(
             child: Column(
               children: [
                 SizedBox(height: 40),
                 GestureDetector(
-                  onTap: () {
-                    _showImageSourceDialog(); // 이미지선택하는 다이얼로그
-                  },
+                  // 수정 페이지에서 사진 변경하는 기능은 추후 구현 예정
+                  // onTap: () {
+                  //   _showImageSourceDialog(); // 이미지선택하는 다이얼로그
+                  //   // enroll.imagepath = _image!.path;
+                  // },
                   child: Container(
+                    child: Image.file(File(enroll.imagepath)),
                     // 회색 직사각형
                     width: 200,
                     height: 250,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10), // 모서리 곡률
-                      color: Colors.grey,
-                      image: _image != null
-                          ? DecorationImage(
-                              image: FileImage(File(_image!.path)),
-                              fit: BoxFit.cover,
-                            )
-                          : null,
-                    ),
-                    child: _image == null
-                        ? Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.camera_alt, // 카메라 아이콘
-                                size: 58,
-                                color: Colors.white,
-                              ),
-                              SizedBox(height: 10),
-                              Text(
-                                '사진 등록',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                ),
-                              ),
-                            ],
-                          )
-                        : null,
                   ),
                 ),
                 Container(
@@ -313,7 +265,7 @@ class _MemberAddState extends State<MemberAdd> {
                                 style: TextStyle(color: Colors.black),
                                 decoration: InputDecoration(
                                     border: InputBorder.none,
-                                    hintText: '블로그 url',
+                                    hintText: '블로그 URL',
                                     hintStyle:
                                         TextStyle(color: Colors.grey[300])),
                                 cursorColor: Colors.blue,
@@ -323,28 +275,26 @@ class _MemberAddState extends State<MemberAdd> {
                         ]),
                       ),
                       Container(
-
                         width: 140,
                         height: 35,
                         margin: EdgeInsets.only(top: 50),
                         child: ElevatedButton(
                           // 저장 기능
                           onPressed: () {
-                            enrollService.createMember(
-                              // index: widget.index,
+                            enrollService.saveMember(
+                              index: widget.index,
                               name: nameController.text,
                               mbti: mbtiController.text,
                               advantage: advController.text,
                               style: stlController.text,
                               url: urlController.text,
-                              imagepath: _image!.path,
+                              // imagepath: _image!.path,
                             );
                             Navigator.pop(context);
                           },
                           child: Text("등록"),
                         ),
                       ),
-
                     ],
                   ),
                 ),

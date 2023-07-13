@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:teampage/enroll_service.dart';
 import 'package:teampage/member_delete.dart';
 
+import 'detail_page.dart';
 import 'enroll_page.dart';
 
 class TeamMember extends StatefulWidget {
@@ -21,6 +22,7 @@ class _TeamMemberState extends State<TeamMember> {
     return Consumer<EnrollService>(
       builder: (context, enrollService, child) {
         List<Enroll> memberList = enrollService.memberList;
+
 
         return Scaffold(
           appBar: AppBar(
@@ -59,6 +61,25 @@ class _TeamMemberState extends State<TeamMember> {
                         ],
                       ),
                       child: Padding(
+
+//         return Builder(builder: (context) {
+//           return Scaffold(
+//             appBar: AppBar(
+//               title: Text('팀원 소개'),
+//             ),
+//             body: memberList.isEmpty
+//                 ? Center(
+//                     child: Text(
+//                       '팀원을 등록해주세요.',
+//                       style: TextStyle(fontSize: 20),
+//                     ),
+//                   )
+//                 : ListView.builder(
+//                     itemCount: memberList.length,
+//                     itemBuilder: (context, index) {
+//                       Enroll enroll =
+//                           memberList[index]; // index에 해당하는 memberlist 가져오기
+//                       return Padding(
                         padding: EdgeInsets.only(
                           left: 15,
                           top: 15,
@@ -66,84 +87,108 @@ class _TeamMemberState extends State<TeamMember> {
                         ),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
+
+                          // 이미지 클릭 시 디테일페이지로 이동
                           children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(8),
-                              child: Image.network(
-                                "https://cdn2.thecatapi.com/images/6bt.jpg",
-                                width: 150,
-                                height: 180,
-                                fit: BoxFit.cover,
+                            Container(
+                              width: 150,
+                              height: 180,
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (_) => MemberDetail(
+                                        index: memberList.indexOf(enroll),
+                                        memberList: memberList,
+                                      ),
+                                    ),
+                                  );
+                                },
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(8),
+                                  child: Image.file(
+                                    File(enroll.imagepath),
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+
                               ),
                             ),
                             SizedBox(width: 13),
                             Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SizedBox(height: 7),
-                                  Text(
-                                    '이름 : ${enroll.name}',
-                                    style: TextStyle(fontSize: 18),
-                                  ),
-                                  SizedBox(height: 8),
-                                  Text(
-                                    'MBTI : ${enroll.mbti}',
-                                    style: TextStyle(fontSize: 18),
-                                  ),
-                                  SizedBox(height: 8),
-                                  Text(
-                                    '장점 : ${enroll.advantage}',
-                                    style: TextStyle(fontSize: 18),
-                                  ),
-                                  SizedBox(height: 8),
-                                  Text(
-                                    '협업스타일 : ${enroll.style}',
-                                    style: TextStyle(fontSize: 18),
-                                  ),
-                                  SizedBox(height: 8),
-                                  Text(
-                                    'URL : ${enroll.url}',
-                                    style: TextStyle(fontSize: 18),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              height: 180,
-                              child: IconButton(
-                                icon: Icon(Icons.delete),
-                                onPressed: () {
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return MemberDelete(index: index);
-                                    },
-                                  );
-                                },
+
+                              child: Padding(
+                                padding: const EdgeInsets.only(right: 3),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(height: 7),
+                                    Text(
+                                      '이름 : ${enroll.name}',
+                                      style: TextStyle(fontSize: 18),
+                                    ),
+                                    SizedBox(height: 8),
+                                    Text(
+                                      'MBTI : ${enroll.mbti}',
+                                      style: TextStyle(fontSize: 18),
+                                    ),
+                                    SizedBox(height: 8),
+                                    Text(
+                                      '장점 : ${enroll.advantage}',
+                                      style: TextStyle(fontSize: 18),
+                                    ),
+                                    SizedBox(height: 8),
+                                    Text(
+                                      '협업스타일 : ${enroll.style}',
+                                      style: TextStyle(fontSize: 18),
+                                    ),
+                                    SizedBox(height: 8),
+                                    GestureDetector(
+                                      child: Text(
+                                        'URL : ${enroll.url}',
+                                        style: TextStyle(fontSize: 18),
+                                      ),
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => WebViewPage(
+                                                url: '${enroll.url}'),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ],
                         ),
-                      ),
-                    );
-                  },
-                ),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => MemberAdd()),
-              );
-            },
-            backgroundColor: Color(0xFFFF7E36),
-            elevation: 1,
-            child: Icon(
-              Icons.add_rounded,
-              size: 36,
+                      );
+                    },
+                  ),
+            floatingActionButton: FloatingActionButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => MemberAdd(
+                      memberList: memberList,
+                    ),
+                  ),
+                );
+              },
+              backgroundColor: Color(0xFFFF7E36),
+              elevation: 1,
+              child: Icon(
+                Icons.add_rounded,
+                size: 36,
+              ),
+
             ),
-          ),
-        );
+          );
+        });
       },
     );
   }
