@@ -126,19 +126,22 @@ class _MemberDetailState extends State<MemberDetail> {
                   //   // enroll.imagepath = _image!.path;
                   // },
                   child: Container(
-                    child: enroll.imagepath == ""
-                        ? Image.asset(
-                            'images/noimage.png',
-                            fit: BoxFit.cover,
-                          )
-                        : Image.file(
-                            File(enroll.imagepath),
-                            fit: BoxFit.cover,
-                          ),
+                    child: _image != null
+                        ? Image.file(File(_image!.path))
+                        : enroll.imagepath == ""
+                            ? Image.asset(
+                                'images/noimage.png',
+                                fit: BoxFit.cover,
+                              )
+                            : Image.file(
+                                File(enroll.imagepath),
+                                fit: BoxFit.cover,
+                              ),
                     // 회색 직사각형
                     width: 200,
                     height: 250,
                   ),
+                  onTap: _showImageSourceDialog,
                 ),
                 Container(
                   margin: EdgeInsets.only(top: 50),
@@ -298,15 +301,18 @@ class _MemberDetailState extends State<MemberDetail> {
                         child: ElevatedButton(
                           // 저장 기능
                           onPressed: () {
+                            String imagepath;
+                            _image != null
+                                ? imagepath = _image!.path
+                                : imagepath = enroll.imagepath;
                             enrollService.saveMember(
-                              index: widget.index,
-                              name: nameController.text,
-                              mbti: mbtiController.text,
-                              advantage: advController.text,
-                              style: stlController.text,
-                              url: urlController.text,
-                              // imagepath: _image!.path,
-                            );
+                                index: widget.index,
+                                name: nameController.text,
+                                mbti: mbtiController.text,
+                                advantage: advController.text,
+                                style: stlController.text,
+                                url: urlController.text,
+                                imagepath: imagepath);
                             Navigator.pop(context);
                           },
                           child: Text("저장"),

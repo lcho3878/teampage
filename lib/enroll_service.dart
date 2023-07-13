@@ -53,27 +53,62 @@ class EnrollService with ChangeNotifier {
 
 // 더미 데이터
   List<Enroll> memberList = [
-// Enroll(name: '이름', mbti: 'intj', advantage: '', style: '', url: ''),
+    Enroll(
+        name: '이찬호',
+        mbti: 'INTJ',
+        advantage: '소통',
+        style: '존중',
+        url: 'https://velog.io/@leech3878',
+        imagepath: 'images/jihoon.png'),
+    Enroll(
+        name: '김지훈',
+        mbti: 'INFJ',
+        advantage: '관찰',
+        style: '경청',
+        url: 'https://luttoli.tistory.com/',
+        imagepath: 'images/jihoon.png'),
+    Enroll(
+        name: '김하림',
+        mbti: 'ESTJ',
+        advantage: '열정',
+        style: '의견 제시를 잘 하려고 함',
+        url: '만들 예정입니다!',
+        imagepath: 'images/harim.png'),
+    Enroll(
+        name: '박지근',
+        mbti: 'ENTJ',
+        advantage: '이성적 멘탈관리',
+        style: '능동적, 상호관계존중, 배려',
+        url: 'https://kylestory.tistory.com/',
+        imagepath: 'images/jihoon.png'),
+    Enroll(
+        name: '천광조',
+        mbti: 'ISTJ',
+        advantage: '의견조율',
+        style: '의견제시',
+        url:
+            'https://www.tistory.com/auth/login/?redirectUrl=https%3A%2F%2Fckj93429.tistory.com%2Fmanage%2Fsetting%2Fblog',
+        imagepath: 'images/gwangjo.png'),
 // Enroll(name: '이름', mbti: 'intj', advantage: '', style: '', url: ''),
   ];
 
 // 수정 기능
-  saveMember({
+  saveMember(
+      {
 // 네이밍 고려
-    required int index,
-    required String name,
-    required String mbti,
-    required String advantage,
-    required String style,
-    required String url,
-    // required String imagepath
-  }) {
+      required int index,
+      required String name,
+      required String mbti,
+      required String advantage,
+      required String style,
+      required String url,
+      required String imagepath}) {
     memberList[index].name = name; // 인덱스 받아서 덮어쓰기
     memberList[index].mbti = mbti;
     memberList[index].advantage = advantage;
     memberList[index].style = style;
     memberList[index].url = url;
-    // memberList[index].imagepath = imagepath;
+    memberList[index].imagepath = imagepath;
 
     notifyListeners(); // Consumer<enrollService>의 builder 부분을 호출해서 화면 새로고침
     saveMemberList();
