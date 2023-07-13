@@ -76,8 +76,6 @@ class _MemberAddState extends State<MemberAdd> {
 
   @override
   Widget build(BuildContext context) {
-    final List<Enroll> memberList;
-
     EnrollService enrollService = context.read<EnrollService>();
     Enroll enroll = enrollService.memberList[widget.index];
 
