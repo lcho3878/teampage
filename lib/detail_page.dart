@@ -126,7 +126,15 @@ class _MemberDetailState extends State<MemberDetail> {
                   //   // enroll.imagepath = _image!.path;
                   // },
                   child: Container(
-                    child: Image.file(File(enroll.imagepath)),
+                    child: enroll.imagepath == ""
+                        ? Image.asset(
+                            'images/noimage.png',
+                            fit: BoxFit.cover,
+                          )
+                        : Image.file(
+                            File(enroll.imagepath),
+                            fit: BoxFit.cover,
+                          ),
                     // 회색 직사각형
                     width: 200,
                     height: 250,
@@ -301,7 +309,7 @@ class _MemberDetailState extends State<MemberDetail> {
                             );
                             Navigator.pop(context);
                           },
-                          child: Text("등록"),
+                          child: Text("저장"),
                         ),
                       ),
                     ],

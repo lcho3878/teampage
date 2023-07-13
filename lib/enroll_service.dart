@@ -66,12 +66,14 @@ class EnrollService with ChangeNotifier {
     required String advantage,
     required String style,
     required String url,
+    // required String imagepath
   }) {
     memberList[index].name = name; // 인덱스 받아서 덮어쓰기
     memberList[index].mbti = mbti;
     memberList[index].advantage = advantage;
     memberList[index].style = style;
     memberList[index].url = url;
+    // memberList[index].imagepath = imagepath;
 
     notifyListeners(); // Consumer<enrollService>의 builder 부분을 호출해서 화면 새로고침
     saveMemberList();

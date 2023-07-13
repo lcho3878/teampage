@@ -44,7 +44,16 @@ class _TeamMemberState extends State<TeamMember> {
         return Builder(builder: (context) {
           return Scaffold(
             appBar: AppBar(
-              title: Text('팀원 소개'),
+              title: Text(
+                '팀원 소개',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              backgroundColor: Colors.white,
+              elevation: 0.5,
             ),
             body: memberList.isEmpty
                 ? Center(
@@ -106,10 +115,14 @@ class _TeamMemberState extends State<TeamMember> {
                                   },
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(8),
-                                    child: Image.file(
-                                      File(enroll.imagepath),
-                                      fit: BoxFit.cover,
-                                    ),
+                                    child: enroll.imagepath == ""
+                                        ? Image.asset(
+                                            'images/noimage.png',
+                                          )
+                                        : Image.file(
+                                            File(enroll.imagepath),
+                                            fit: BoxFit.cover,
+                                          ),
                                   ),
                                 ),
                               ),

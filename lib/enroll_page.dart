@@ -90,6 +90,7 @@ class _MemberAddState extends State<MemberAdd> {
       builder: (context, enrollService, child) {
         return Scaffold(
           appBar: AppBar(
+            elevation: 0.5,
             backgroundColor: Colors.white,
             title: Text(
               "등록",
@@ -309,6 +310,10 @@ class _MemberAddState extends State<MemberAdd> {
                         child: ElevatedButton(
                           // 저장 기능
                           onPressed: () {
+                            String imagepath;
+                            _image != null
+                                ? imagepath = _image!.path
+                                : imagepath = "";
                             enrollService.createMember(
                               // index: widget.index,
                               name: nameController.text,
@@ -316,7 +321,7 @@ class _MemberAddState extends State<MemberAdd> {
                               advantage: advController.text,
                               style: stlController.text,
                               url: urlController.text,
-                              imagepath: _image!.path,
+                              imagepath: imagepath,
                             );
                             Navigator.pop(context);
                           },
